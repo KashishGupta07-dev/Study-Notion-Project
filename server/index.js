@@ -14,7 +14,7 @@ connectToDatabase();
 connectCloudinary();
 app.use(cookieParser());
 app.use(express.json());
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT,()=>{
     console.log(`Server Started Successfully at port : ${PORT}`);
 });
