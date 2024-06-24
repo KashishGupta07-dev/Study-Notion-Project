@@ -23,6 +23,7 @@ export const CourseBuilderForm = () => {
         handleSubmit,
         formState:{errors}
     } = useForm();
+    // eslint-disable-next-line
     const [loading,setLoading] = useState(false);
     const [editSectionDetails,setEditSectionDetails] = useState(null);
     const [editSection,setEditSection] = useState(false);

@@ -22,7 +22,6 @@ export const Cart = () => {
     return price;
     }
     async function handleBuy(){
-      let courseId = [];
       setLoading(true);
       await buyCourse(cart.map(course=>course._id),token,user,navigate,dispatch);
       setLoading(false);
