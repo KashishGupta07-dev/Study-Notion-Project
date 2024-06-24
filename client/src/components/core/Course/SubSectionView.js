@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { RxDropdownMenu } from "react-icons/rx";
 import { MdEdit } from "react-icons/md";
 import { MdAdd } from "react-icons/md";

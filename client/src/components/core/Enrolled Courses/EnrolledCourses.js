@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getEnrolledCoursesApi } from '../../../services/operations/coursesApi';
 import {Spinner} from "../common/Spinner";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { CiMenuKebab } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 export const EnrolledCourses = () => {
   const {token} = useSelector((state)=>state.auth);
@@ -14,6 +13,7 @@ export const EnrolledCourses = () => {
     setLoading(true);
     dispatch(getEnrolledCoursesApi(token,setUserDetails));
     setLoading(false);
+    // eslint-disable-next-line
   },[])
   return (
     loading?<Spinner/> : 
@@ -34,7 +34,7 @@ export const EnrolledCourses = () => {
             <tr key={course?._id} className='border-b-[1px] border-richblack-700'>
               <td className='w-[55%]'>
               <Link to={`/view-course/${course?._id}/section/${course?.courseContent[0]?._id}/sub-section/${course?.courseContent[0]?.subSection[0]?._id}`} className='flex flex-row items-center gap-x-4 py-4 px-4'>
-                <img src={course?.thumbnail} className='w-[150px] h-[100px] aspect-square rounded-md object-cover'/>
+                <img src={course?.thumbnail} alt='thumbnail' className='w-[150px] h-[100px] aspect-square rounded-md object-cover'/>
                 <div className='flex flex-col gap-y-4'>
                   <div className=' text-richblack-5 font-semibold'>{course?.courseName}</div>
                   <div className='text-sm text-richblack-200 font-medium'>{course?.courseDescription}</div>

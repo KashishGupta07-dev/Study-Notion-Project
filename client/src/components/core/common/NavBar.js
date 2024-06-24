@@ -54,10 +54,10 @@ export default function NavBar() {
                 <div>Catalog</div>
                 <IoIosArrowDown/>
                 </div>
-                <div className='h-[500px] pr-2 overflow-auto absolute transition-all duration-200 top-[2.3rem] pl-2 py-4 z-[40] left-[-5rem] rounded-lg invisible gap-5 items-start justify-center text-lg group-hover:visible flex flex-col bg-richblack-5 text-richblack-800' style={{ scrollbarWidth: "none", msOverflowStyle:"none" }}>
+                <div className=' max-h-[500px] pr-2 overflow-auto absolute transition-all duration-200 top-[2.3rem] pl-2 py-4 z-[40] left-[-5rem] rounded-lg invisible gap-5 items-start justify-center text-lg group-hover:visible flex flex-col bg-richblack-5 text-richblack-800' style={{ scrollbarWidth: "none", msOverflowStyle:"none" }}>
                     {
                         spinner?<div className='pl-5 pr-48 py-3 translate-x-[25%]'>Loading.....</div>:
-                        !categories?<div className='pl-5 py-3 pr-3 whitespace-nowrap '>No Categories Available!!</div>:
+                        (!categories || categories?.length === 0 ) ?<div className='pl-5 py-3 pr-3 whitespace-nowrap '>No Categories Available!!</div>:
                        categories.map((category)=>(
                         <Link to={`/catalog/${category.name.split(" ").join("-")}`} key={category._id}>
                             <div className=' mx-auto pl-4 w-48 text-sm py-3 rounded-lg hover:bg-richblack-25 hover:text-black'>{category.name}</div>

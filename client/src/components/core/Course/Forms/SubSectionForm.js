@@ -24,6 +24,7 @@ export const SubSectionForm = ({ adding,viewing,editing, setShowSubSectionForm ,
       setValue("lectureTitle",(viewing || editing).title);
       setValue("lectureDescription",(viewing || editing).description);
     }
+    // eslint-disable-next-line
   },[])
   function isFormUpdated(){
     const allValues = getValues();

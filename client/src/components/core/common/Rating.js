@@ -13,6 +13,7 @@ export const Rating = ({starValue,readOnly,customClass,register,setValue}) => {
         else{
             return;
         }
+        // eslint-disable-next-line
     },[fullStars])
     function Fullstar(){
         let arr = [];

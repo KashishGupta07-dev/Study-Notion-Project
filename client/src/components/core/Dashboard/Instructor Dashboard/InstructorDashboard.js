@@ -14,10 +14,11 @@ export const InstructorDashboard = () => {
     useEffect(()=>{
         setLoading(true);
         getInstructorDetailsApi(token,setInstructorDetails,setLoading);
+        // eslint-disable-next-line
     },[])
     function courseNames(){
         let courseName = [];
-        instructorDetails?.courses?.map((course)=>{
+        instructorDetails?.courses?.forEach((course)=>{
             courseName = [...courseName,course?.courseName];
         })
         console.log("Course Names : ",courseName);
@@ -25,7 +26,7 @@ export const InstructorDashboard = () => {
     }
     function dataFinder(){
         let data = [];
-        instructorDetails?.courses?.map((course)=>{
+        instructorDetails?.courses?.forEach((course)=>{
             data = [...data,course?.studentsEnrolled?.length];
         })
         console.log("Data : ",data);
@@ -33,21 +34,21 @@ export const InstructorDashboard = () => {
     }
     function calcTotalStudents(){
         let totalStudents = 0;
-        instructorDetails?.courses?.map((course)=>{
+        instructorDetails?.courses?.forEach((course)=>{
             totalStudents+= (course?.studentsEnrolled?.length);
         })
         return totalStudents;
     }
     function calcTotalIncome(){
         let totalIncome = 0;
-        instructorDetails?.courses?.map((course)=>{
+        instructorDetails?.courses?.forEach((course)=>{
             totalIncome+= (course?.price* course?.studentsEnrolled?.length);
         })
         return totalIncome;
     }
     function incomeFinder(){
         let incomeData = [];
-        instructorDetails?.courses?.map((course)=>{
+        instructorDetails?.courses?.forEach((course)=>{
             incomeData = [...incomeData,(course?.price* course?.studentsEnrolled?.length)];
         })
         return incomeData;

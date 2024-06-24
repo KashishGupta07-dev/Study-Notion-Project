@@ -63,6 +63,7 @@ export const CourseDetails = () => {
     setLoading(true);
     dispatch(getCourseDetailsApi(courseId,setCourseDetails));
     setLoading(false);
+    // eslint-disable-next-line
   },[]);
   return (
     loading?<Spinner/>:
@@ -129,7 +130,7 @@ export const CourseDetails = () => {
             <div className='flex flex-col mt-8 gap-4 max-w-[60%]'>
                     <div className='text-richblack-5 text-3xl font-bold'>Author</div>
                     <div className='flex flex-row gap-x-4 items-center text-caribbeangreen-50 font-bold text-xl'>
-                      <img src={courseDetails?.instructor?.image} className='w-[52px] aspect-square rounded-full'/>
+                      <img src={courseDetails?.instructor?.image} alt='instructor' className='w-[52px] aspect-square rounded-full'/>
                       <div>{`${courseDetails?.instructor?.firstName} ${courseDetails?.instructor?.lastName?courseDetails?.instructor?.lastName:""}`}</div>
                     </div>
                     <div className='text-lg text-richblack-200'>{courseDetails?.instructor?.additionalDetails?.about ?courseDetails?.instructor?.additionalDetails?.about  : ""}</div>

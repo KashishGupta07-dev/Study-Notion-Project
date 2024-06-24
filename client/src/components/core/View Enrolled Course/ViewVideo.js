@@ -36,6 +36,7 @@ export const ViewVideo = () => {
     );
     setVideoData(filteredSubSection[0]);
     setVideoEnded(false);
+    // eslint-disable-next-line
   }, [subSectionDetails, videoData,courseDetails, location.pathname]);
   function isFirstVideo() {
     if (

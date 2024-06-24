@@ -1,11 +1,10 @@
 import React, { useEffect, useRef,useState } from 'react'
 import { IoMdCloudUpload } from "react-icons/io";
-import { useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { IoPlayOutline } from "react-icons/io5";
 export const UploadVideo = ({setValue,errors,register,editing,viewing}) => {
     const inputRef = useRef();
     const [previewVideo,setPreviewVideo] = useState(null);
+    // eslint-disable-next-line
     const [file,setFile] = useState(null);
     useEffect(()=>{
         if(editing || viewing){
@@ -16,6 +15,7 @@ export const UploadVideo = ({setValue,errors,register,editing,viewing}) => {
               register("lectureVideo", {
                 required: { value: true, message: "Please upload a lecture video" }
               });
+              // eslint-disable-next-line
     },[])
     function clickHandler(){
         inputRef.current.click();

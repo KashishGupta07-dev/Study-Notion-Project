@@ -20,6 +20,7 @@ export const ProfileDropdown = () => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
+    // eslint-disable-next-line
   }, [dropdownRef]);
 
   return (

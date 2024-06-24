@@ -16,6 +16,7 @@ export const ViewEnrolledCourse = () => {
   useEffect(()=>{
     setLoading(true);
     dispatch(getFullCourseDetailsApi(courseId,token,setCompletedLectures,setCourseDetails,setSectionDetails,setSubSectionDetails,setTotalLectures,setLoading));
+    // eslint-disable-next-line
   },[]);
   return (
     loading?<Spinner/> : 

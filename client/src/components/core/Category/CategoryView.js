@@ -21,6 +21,7 @@ export const CategoryView = () => {
     const navigate = useNavigate();
     useEffect(()=>{
         dispatch(getCategoryPageDetailsApi(realCategoryName,setSelectedCategory,setDifferentCategory,setTopSellingCourses,navigate));
+        // eslint-disable-next-line
     },[location.pathname])
   return (
     <div className='flex flex-col'>

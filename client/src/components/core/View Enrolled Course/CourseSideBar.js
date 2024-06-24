@@ -21,6 +21,7 @@ export const CourseSideBar = ({setReviewModal}) => {
         navigate(`/view-course/${courseDetails?._id}/section/${sectionDetails?.[0]?._id}/sub-section/${sectionDetails?.[0]?.subSection?.[0]?._id}`);
     }
   }
+  // eslint-disable-next-line
 },[courseDetails,sectionDetails,location.pathname]);
   function timeDuration(section){
     let timeDuration = 0;
