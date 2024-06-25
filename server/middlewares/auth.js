@@ -3,7 +3,6 @@ require("dotenv").config();
 exports.auth = async(request,response,next)=>{
     try{
         const token = request.header("Authorization").replace("Bearer ","") ||  request.cookies.token || request.body.token  ;
-        console.log("Request  : ",token);
         if(!token){
         return response.status(400).json({
             success:false,
@@ -13,7 +12,6 @@ exports.auth = async(request,response,next)=>{
     try{
     const payload = jwt.verify(token,process.env.JWT_SECRET);
         request.user = payload,
-        console.log(request.user);
         next();
 }catch(error){
     console.error("Token verification failed:", error);

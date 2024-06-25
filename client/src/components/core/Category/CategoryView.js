@@ -7,10 +7,13 @@ import { SwiperCard } from './SwiperCard';
 import Footer from '../Home/Footer';
 import { Rating } from '../common/Rating';
 import { Link } from 'react-router-dom';
+import { Spinner } from '../common/Spinner';
+import { getAverageRating } from '../../../services/operations/averageRatingCalculator';
 export const CategoryView = () => {
     const [selectedCategory,setSelectedCategory] = useState(null);
     const [differentCategory,setDifferentCategory] = useState(null);
     const [topSellingCourses,setTopSellingCourses] = useState(null);
+    const [loading,setLoading] = useState(false);
     let totalCourse = 0
     let maxCourse = 4;
     const dispatch = useDispatch();
@@ -20,10 +23,12 @@ export const CategoryView = () => {
     const location = useLocation();
     const navigate = useNavigate();
     useEffect(()=>{
-        dispatch(getCategoryPageDetailsApi(realCategoryName,setSelectedCategory,setDifferentCategory,setTopSellingCourses,navigate));
+        setLoading(true);
+        dispatch(getCategoryPageDetailsApi(realCategoryName,setSelectedCategory,setDifferentCategory,setTopSellingCourses,navigate,setLoading));
         // eslint-disable-next-line
     },[location.pathname])
   return (
+    loading?<Spinner/> : 
     <div className='flex flex-col'>
         <div className='bg-[#161D29] min-h-[244px]'>
         <div className='w-11/12 mx-auto flex min-h-[244px] flex-col justify-center gap-8'>
@@ -55,7 +60,7 @@ export const CategoryView = () => {
                     if(totalCourse>=maxCourse){
                         return null;
                     }
-                    if( !course?.studentsEnrolled?.includes(user?._id) ){
+                    if( !course?.studentsEnrolled?.includes(user?._id) && course?.status === "Published"){
                    
                     totalCourse++;
                     return(
@@ -64,9 +69,9 @@ export const CategoryView = () => {
                 <div className='text-richblack-5 font-semibold text-2xl'>{course.courseName}</div>
                 <div className='text-richblack-200 font-medium text-lg'>{`Created By : ${course.instructor.firstName} ${course.instructor.lastName?course.instructor.lastName : ""}`}</div>
                 <div className='flex flex-row items-center text-richblack-200 gap-2 text-xl'>
-                <div className='text-yellow-50'>{0}</div>
-                <Rating starValue={0} readOnly={true}/>
-                <div>{`${0} Ratings`}</div>
+                <div className='text-yellow-50'>{getAverageRating(course)}</div>
+                <Rating starValue={getAverageRating(course)} readOnly={true}/>
+                <div>{`${course?.ratingAndReview?.length} Ratings`}</div>
                 </div>
                 <div className='text-richblack-5 font-semibold text-xl'>{`₹ ${course.price}`}</div>
                 </Link>

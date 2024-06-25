@@ -37,7 +37,6 @@ export async function buyCourse(courses, token,userDetails,navigate,dispatch) {
         Authorization: `Bearer ${token}`,
       }
     );
-    console.log("Order Response : ",orderResponse);
     if (!orderResponse?.data?.success) {
       toast.error("Capture Payment Failed");
       console.log(orderResponse?.data?.message);
@@ -58,7 +57,6 @@ export async function buyCourse(courses, token,userDetails,navigate,dispatch) {
     },
 
     handler:function(response){
-      console.log("Response  : ",response);
         sendPaymentSuccessEmail(response,orderResponse.data.message.amount,token);
         dispatch(verifyPayment({...response,courses},token,navigate));
     }

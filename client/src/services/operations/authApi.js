@@ -2,7 +2,7 @@ import { apiConnector } from "../apiConnector";
 import toast from "react-hot-toast";
 import { setLoading } from "../../reducers/slices/AuthSlice";
 import { authApi } from "../apis";
-import { setSignupData,setToken,setResetToken } from "../../reducers/slices/AuthSlice";
+import { setSignupData,setToken } from "../../reducers/slices/AuthSlice";
 import { setUser } from "../../reducers/slices/ProfileSlice";
 export function sendOtp(email,navigate){
     return async(dispatch)=>{
@@ -12,13 +12,13 @@ export function sendOtp(email,navigate){
             const response = await apiConnector("POST",authApi.SEND_OTP_API,{
                 email:email,
             })
-            console.log("Send Otp Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){
                 toast.error("Otp Not Sent Because Success")
                 console.log(message);
                 navigate("/signup");
+                return;
             }
             toast.success("Otp sent successfully")
             navigate("/verify-email");
@@ -47,7 +47,6 @@ export function signupUser(firstName,lastName,email,password,confirmPassword,acc
             const response = await apiConnector("POST",authApi.SIGNUP_API,{
                 firstName,lastName,email,password,confirmPassword,accountType,otp
             })
-            console.log("Signup Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){
@@ -78,16 +77,14 @@ export function loginUser(email,password,navigate){
             const response = await apiConnector("POST",authApi.LOGIN_API,{
                 email,password
             });
-            console.log("Login Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){
-                toast.error("Login Unsuccessful");
+                toast.error("User Does Not Exist");
                 console.log(message);
-                navigate("/login");
+                navigate("/signup");
             }
             toast.success("Login Successful");
-            console.log("User data : ",response?.data?.user);
             dispatch(setToken(response?.data?.token));
             dispatch(setUser(response?.data?.user));
             localStorage.setItem("token",response?.data?.token);
@@ -104,7 +101,7 @@ export function loginUser(email,password,navigate){
 }
 
 
-export function generateResetPasswordToken(email,navigate,setMailSent){
+export function generateResetPasswordToken(email,navigate,setMailSent,setResetToken){
     return async(dispatch)=>{
         dispatch(setLoading(true));
         const toastId = toast.loading("Loading...");
@@ -112,7 +109,6 @@ export function generateResetPasswordToken(email,navigate,setMailSent){
             const response = await apiConnector("POST",authApi.RESET_PASSWORD_TOKEN_API,{
                 email
             });
-            console.log("Reset Password Token Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){
@@ -143,7 +139,6 @@ export function resetPasswordFromToken(password,confirmPassword,token,navigate){
             const response = await apiConnector("POST",authApi.RESET_PASSWORD_API,{
                 password,confirmPassword,token
             });
-            console.log("Reset Password Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){

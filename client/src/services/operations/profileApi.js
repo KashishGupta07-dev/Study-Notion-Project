@@ -6,13 +6,11 @@ import { logoutHandler } from "./authApi";
 export function updateProfilePicture(formData,token,setPreviewImage){
     return async(dispatch)=>{               
         const toastId = toast.loading("Loading...");
-        console.log(formData);
         try{
             const response = await apiConnector("PUT",profileApi.UPDATE_PROFILE_PICTURE_API,formData,{
                 "Content-Type": "multipart/form-data",
                 "Authorization": `Bearer ${token}`
             });
-            console.log("Update Profile Picture Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             const image = response?.data?.updatedUser?.image;
@@ -43,7 +41,6 @@ export function updateProfile({firstName,lastName,dateOfBirth,gender,contactNumb
             },{
                 "Authorization": `Bearer ${token}`
             });
-            console.log("Update Profile Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){
@@ -54,7 +51,6 @@ export function updateProfile({firstName,lastName,dateOfBirth,gender,contactNumb
             dispatch(setUser({...response?.data?.user}));
 
             localStorage.setItem("user",JSON.stringify(response?.data?.user));
-            console.log("Hell :",localStorage.getItem("user"));
             toast.success("Profile Updated Successfully");
         }catch(error){
             console.log(error);
@@ -75,7 +71,6 @@ export function updatePassword({oldPassword,newPassword,confirmNewPassword,token
             },{
                 Authorization:`Bearer ${token}`
             });
-            console.log("Change Password Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){
@@ -104,7 +99,6 @@ export function deleteProfile(token,navigate){
             const response = await apiConnector("DELETE",profileApi.DELETE_PROFILE_API,null,{
                 Authorization:`Bearer ${token}`,
             });
-            console.log("Delete Profile Response : ",response);
             const success = response?.data?.success;
             const message = response?.data?.message;
             if(!success){

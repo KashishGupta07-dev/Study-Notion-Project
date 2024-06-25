@@ -1,24 +1,18 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { GoArrowLeft } from 'react-icons/go';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {resetPasswordFromToken } from '../services/operations/authApi';
 import toast from 'react-hot-toast';
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 
 export const ResetPassword = () => {
-  const {isResetTokenGenerated} = useSelector((state)=>state.auth);
   const location = useLocation();
   const navigate = useNavigate();
   const token = location.pathname.split("/").at(-1);
   const dispatch = useDispatch();
-  useEffect(()=>{
-    if(!isResetTokenGenerated){
-      navigate("/reset-password");
-    }
-  },[isResetTokenGenerated,navigate])
   const [eyePass,setEyePass]=useState(true);
   const [eyeConfirmPass,setEyeConfirmPass]=useState(true);
   const [formData,setFormData] = useState({

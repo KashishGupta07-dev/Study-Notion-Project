@@ -39,7 +39,6 @@ exports.editProfile = async(request,response)=>{
             }
         }
     }).exec();
-       console.log("User After Update : ",user);
        return response.status(200).json({
         success:true,
         message:"Profile Updated Successfully",
@@ -144,9 +143,7 @@ exports.updateProfilepic = async(request,response)=>{
                 message:"User not found",
             })
         }
-        console.log("File : ",image);
         const uploadedImage = await uploadImage(image,process.env.FOLDER_NAME)
-        console.log("uploaded image : ",uploadedImage);
         const updatedUser = await User.findByIdAndUpdate(userId,{image:uploadedImage.secure_url},{new:true}).populate({
             path:"courses",
             populate : {

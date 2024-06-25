@@ -13,6 +13,7 @@ import { Modal } from '../common/Modal';
 import { setCart,setNumberOfItems } from '../../../reducers/slices/CartSlice';
 import { buyCourse } from '../../../services/operations/studentFeaturesApi';
 import { Spinner } from '../common/Spinner';
+import { getAverageRating } from '../../../services/operations/averageRatingCalculator';
 export const CourseDetails = () => {
   const [courseDetails,setCourseDetails] = useState(null);
   const dispatch = useDispatch();
@@ -61,12 +62,12 @@ export const CourseDetails = () => {
   }
   useEffect(()=>{
     setLoading(true);
-    dispatch(getCourseDetailsApi(courseId,setCourseDetails));
-    setLoading(false);
+    dispatch(getCourseDetailsApi(courseId,setCourseDetails,setLoading));
     // eslint-disable-next-line
   },[]);
   return (
     loading?<Spinner/>:
+    courseDetails?.status === "Published" ?
     <div className='flex flex-col gap-y-6'>
       <div className='bg-[#161D29] relative'>
         <div className='w-11/12 mx-auto'>
@@ -74,9 +75,9 @@ export const CourseDetails = () => {
             <div className='text-4xl font-bold text-richblack-5'>{`${courseDetails?.category.name}`}</div>
             <div className='text-richblack-200 text-lg'>{courseDetails?.category?.description}</div>
            <div className='flex flex-row items-center text-richblack-200 gap-2 text-2xl'>
-                <div className='text-yellow-50'>{0}</div>
-                <Rating starValue={0} readOnly={true}/>
-                <div className='text-yellow-50'>{`(${0} Reviews)`}</div>
+                <div className='text-yellow-50'>{getAverageRating(courseDetails)}</div>
+            <Rating starValue={getAverageRating(courseDetails)} readOnly={true}/>
+                <div className='text-yellow-50'>{`(${courseDetails?.ratingAndReview?.length} Reviews)`}</div>
                 <div className='text-richblack-5 text-xl'>{`${courseDetails?.studentsEnrolled?.length} Students Enrolled`}</div>
               </div>
             <div className='text-richblack-5 text-xl'>{`Created By ${courseDetails?.instructor.firstName} ${courseDetails?.instructor?.lastName}`}</div>
@@ -90,18 +91,18 @@ export const CourseDetails = () => {
               <img src={courseDetails?.thumbnail} alt='thumbnail' className='max-h-[300px] min-h-[180px] w-[400px] overflow-hidden rounded-2xl object-cover max-w-full'/>
               <div className='flex flex-col w-11/12 mx-auto gap-y-4 mt-4'>
                   <div className='text-3xl text-richblack-5 font-bold'>{`Rs. ${courseDetails?.price}`}</div>
-                  {!courseDetails?.studentsEnrolled?.includes(user?._id) ?
+                  {!courseDetails?.studentsEnrolled?.includes(user?._id) && user?.accountType !== "Instructor" ?
                     <button className='py-2 px-4 bg-yellow-50 font-bold rounded-lg' onClick={()=>buyCouseHandler()}>Buy Now</button>
                     :
-                    <button className='py-2 px-4 bg-yellow-50 font-bold rounded-lg' onClick={()=>navigate("/dashboard/enrolled-courses")}>Go To Course</button>
+                    user?.accountType !== "Instructor" && <button className='py-2 px-4 bg-yellow-50 font-bold rounded-lg' onClick={()=>navigate("/dashboard/enrolled-courses")}>Go To Course</button>
                   }
-                  {!courseDetails?.studentsEnrolled?.includes(user?._id) &&
+                  {!courseDetails?.studentsEnrolled?.includes(user?._id) && user?.accountType !== "Instructor" && 
                     <button className='bg-richblack-800 text-richblack-5 rounded-lg font-bold'>{
                     !cart?.some(item => item?._id === courseDetails?._id) ? <div onClick={()=>cartHandler(courseDetails)} className='py-2 px-4'>Add To Cart</div>
                     :<div onClick={()=>removeCourse(courseDetails)} className='py-2 px-4'>Remove From Cart</div>
                     }</button>
                   }
-                  <div className=' text-sm text-richblack-50 text-center'>30-Day Money-Back Guarantee</div>
+                  {user?.accountType !== "Instructor" && <div className=' text-sm text-richblack-50 text-center'>30-Day Money-Back Guarantee</div>}
                   <div className='text-richblack-5 font-bold text-lg'>This Course Includes:</div>
                   <div className='flex flex-col text-caribbeangreen-200 gap-2'>
                       {
@@ -139,6 +140,6 @@ export const CourseDetails = () => {
             </div>
            {showModal && <Modal heading={"You are not logged in!"} subheading={"Please login to Buy Course"} firstBtnText={"Login"} secondBtnText={"Cancel"} firstBtnClickHandler={()=>navigate("/login")} secondBtnClickHandler={()=>setShowModal(false)}/>}
             <Footer/>
-    </div>
+    </div> : <div className="flex items-center h-[100vh] justify-center text-4xl font-bold text-richblack-5">Course Not Found</div>
   )
 }

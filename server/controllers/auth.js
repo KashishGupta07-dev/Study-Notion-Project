@@ -166,7 +166,7 @@ exports.login = async(request,response)=>{
         user.password = undefined;
         user.token = token;
         return response.cookie("token",token,{
-            expires: new Date(Date.now() + 3*24*60*60*1000),
+            expires: new Date(Date.now() + 2*60*60*1000),
             httpOnly:true,
         }).status(200).json({
             success:true,
@@ -214,7 +214,6 @@ exports.changePassword = async(request,response)=>{
             }
         }).exec();
        const emailResponse = await mailSender(email,"Password Udated Successfully",`Password updated successfully for the email : ${email} in the study notion platform`);
-       console.log(emailResponse); 
        return response.status(200).json({
             success:true,
             message:"Password Changed Successfully",

@@ -36,10 +36,9 @@ export const CourseInformationForm = () => {
         setValue("benefitsOfCourse",course?.whatYouWillLearn);
         setValue("coursePrice",course?.price);
         setValue("courseCategory",course?.category?.name);
-        setValue("courseThumbnail",course?.thumbnail);
       }
       // eslint-disable-next-line
-    },[])
+    },[editCourse])
     function submitHandler(data){
       const allValues = getValues();
       const formData = new FormData();
@@ -50,39 +49,42 @@ export const CourseInformationForm = () => {
           toast.error("Please Update Course");
           return;
         }
-        if(course?.courseName !== allValues.courseTitle){
-          formData.append("courseName",allValues.courseTitle);
+        if(course?.courseName !== data.courseTitle){
+          formData.append("courseName",data.courseTitle);
         }
-        if(course?.courseDescription !== allValues.courseShortDescription){
-          formData.append("courseDescription",allValues.courseShortDescription);
+        if(course?.courseDescription !== data.courseShortDescription){
+          formData.append("courseDescription",data.courseShortDescription);
         }
-        if(course?.whatYouWillLearn !== allValues.benefitsOfCourse){
-          formData.append("whatYouWillLearn",allValues.benefitsOfCourse);
+        if(course?.whatYouWillLearn !== data.benefitsOfCourse){
+          formData.append("whatYouWillLearn",data.benefitsOfCourse);
         }
-        if(course?.price !== allValues.coursePrice){
-          formData.append("price",allValues.coursePrice);
+        if(course?.price !== data.coursePrice){
+          formData.append("price",data.coursePrice);
         }
-        if(course?.category?.name !== allValues.courseCategory){
-          formData.append("category",allValues.courseCategory);
+        if(course?.category?.name !== data.courseCategory){
+          formData.append("category",data.courseCategory);
         }
-        if(course?.instructions !== allValues.instructions){
-          formData.append("instructions",allValues.instructions);
+        if( String((course?.instructions[0]).split(",")) !== String(data.instructions)){
+          formData.append("instructions",data.instructions);
         }
-        if(course?.image !== allValues.courseThumbnail){
-          formData.append("image",allValues.courseThumbnail);
+        if(String(course?.image) !== String(data.courseThumbnail)){
+          formData.append("image",data.courseThumbnail);
+        }
+        if(String((course?.tag[0]).split(",")) !== String(allValues.tag)){
+          formData.append("tag",data.tag);
         }
         dispatch(editCourseApi(formData,token));
         return;
       }
-      formData.append("courseName",allValues.courseTitle);
-      formData.append("courseDescription",allValues.courseShortDescription);
-      formData.append("whatYouWillLearn",allValues.benefitsOfCourse);
-      formData.append("price",allValues.coursePrice);
-      formData.append("category",allValues.courseCategory);
-      formData.append("tag",allValues.tag);
-      formData.append("instructions",allValues.instructions);
-      formData.append("image",allValues.courseThumbnail);
-      dispatch(createCourse(formData,token))
+      formData.append("courseName",data.courseTitle);
+      formData.append("courseDescription",data.courseShortDescription);
+      formData.append("whatYouWillLearn",data.benefitsOfCourse);
+      formData.append("price",data.coursePrice);
+      formData.append("category",data.courseCategory);
+      formData.append("tag",data.tag);
+      formData.append("instructions",data.instructions);
+      formData.append("image",data.courseThumbnail);
+      dispatch(createCourse(formData,token));
     }
     function isUpdated(){
       const allValues = getValues();
@@ -191,6 +193,7 @@ export const CourseInformationForm = () => {
             }}
             {...register("courseCategory", {
               required: { value: true, message: "Please Enter Course Category" },
+              
             })}
           >
           <option value="" disabled>Create A Category</option>
@@ -200,12 +203,29 @@ export const CourseInformationForm = () => {
             ))
           }
           </select>
+          {errors.courseCategory && (
+            <span className="mt-1 text-[12px] text-yellow-100">
+              {errors.courseCategory.message}
+            </span>
+          )}
         </label>
+        <div>
         <Tag register={register} setValue={setValue} getValues={getValues}/>
+        {errors?.tag && (
+            <span className="mt-1 text-[12px] text-yellow-100">
+              {errors?.tag.message}
+            </span>
+          )}
+          </div>
         <div className='w-full'>
         <p className="mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5">
         Course Thumbnail <sup className="text-pink-400">*</sup></p>
         <Upload register={register} setValue={setValue}  getValues={getValues}/>
+        {errors?.courseThumbnail && (
+            <span className="mt-1 text-[12px] text-yellow-100">
+              {errors?.courseThumbnail.message}
+            </span>
+          )}
         </div>
         <label className="w-full">
           <p className="mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5">
@@ -229,7 +249,14 @@ export const CourseInformationForm = () => {
             </span>
           )}
         </label>
+        <div>
         <Instructions register={register} setValue={setValue}  getValues={getValues}/>
+        {errors.instructions && (
+            <span className="mt-1 text-[12px] text-yellow-100">
+              {errors.instructions.message}
+            </span>
+          )}
+        </div>
       <div className="flex justify-end">
        {editCourse?<div className='flex flex-row gap-4'>
        <button className="bg-richblack-200 text-black px-6 rounded-md cursor-pointer py-2 font-semibold" onClick={(event)=>{

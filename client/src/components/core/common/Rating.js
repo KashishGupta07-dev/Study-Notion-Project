@@ -4,7 +4,7 @@ import { IoIosStarHalf } from "react-icons/io";
 import { IoIosStarOutline } from "react-icons/io";
 export const Rating = ({starValue,readOnly,customClass,register,setValue}) => {
     const [fullStars,setfullStars] = useState(Math.floor(starValue));
-    const [halfStars,setHalfStars] = useState(starValue-Math.floor(starValue));
+    const [halfStars,setHalfStars] = useState(Math.round(starValue-Math.floor(starValue)));
     useEffect(()=>{
         if(register && setValue){
         setValue("rating",fullStars);

@@ -47,14 +47,11 @@ export const Settings = () => {
   function uploadClickHandler() {
     const formData = new FormData();
     formData.append("displayPicture", file);
-    console.log("Form : ", formData);
     dispatch(updateProfilePicture(formData, token, setPreviewImage));
   }
   function submitHandler(data) {
     data.token = token;
-    console.log("Updated Form Data : ",data);
     dispatch(updateProfile(data));
-    console.log("Hello User : ",user);
   }
   return (
     <div className=" h-[calc(100vh-3.5rem)] overflow-auto">

@@ -1,4 +1,4 @@
-import {  Route, Routes } from 'react-router';
+import {  Route, Routes, useNavigate } from 'react-router';
 import Signup from './pages/Signup';
 import './App.css';
 import Home from './pages/Home';
@@ -15,7 +15,7 @@ import { OpenRoute } from './components/core/Auth/OpenRoute';
 import {PrivateRoute} from "./components/core/Auth/PrivateRoute"
 import { MyProfile } from './components/core/Dashboard/MyProfile';
 import { Settings } from './components/core/Dashboard/Settings';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AddCourse } from './components/core/Course/AddCourse';
 import { ViewCourse } from './components/core/Course/View Course/ViewCourse';
 import { Cart } from './components/core/Dashboard/Cart';
@@ -25,8 +25,29 @@ import { EnrolledCourses } from './components/core/Enrolled Courses/EnrolledCour
 import { ViewEnrolledCourse } from './components/core/View Enrolled Course/ViewEnrolledCourse';
 import { ViewVideo } from './components/core/View Enrolled Course/ViewVideo';
 import { InstructorDashboard } from './components/core/Dashboard/Instructor Dashboard/InstructorDashboard';
+import { EditCourse } from './components/core/Course/View Course/EditCourse';
+import {jwtDecode} from 'jwt-decode';
+import { useEffect } from 'react';
+import { logoutHandler } from './services/operations/authApi';
 function App() {
   const {user} = useSelector((state)=>state.profile);
+  const {token} = useSelector((state)=>state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    if(token){
+      const decodeToken = jwtDecode(token);
+      const currentTime = new Date().getTime();
+      const tokenExpiryTime = decodeToken.exp * 1000; 
+      const timeLeft = tokenExpiryTime - currentTime;
+      if (timeLeft <= 0) {
+        dispatch(logoutHandler(navigate));
+    }else{
+      setTimeout(dispatch(logoutHandler(navigate)), timeLeft);
+    }
+    }
+    // eslint-disable-next-line
+  },[])
   return (
    <div className='flex min-h-screen w-screen flex-col bg-richblack-900 font-inter'>
     <NavBar/>
@@ -73,7 +94,7 @@ function App() {
         <Route path={"/dashboard/add-course"} element={<AddCourse/>}/>
         <Route path={"/dashboard/my-courses"} element={<ViewCourse/>}/>
         <Route path={"/dashboard/instructor-dashboard"} element={<InstructorDashboard/>}/>
-        <Route path='/dashboard/edit-course/:courseId' element={<AddCourse/>}/>
+        <Route path='/dashboard/edit-course/:courseId' element={<EditCourse/>}/>
         </>
        }
         </Route>      

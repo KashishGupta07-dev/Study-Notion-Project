@@ -7,6 +7,7 @@ import {setCart, setNumberOfItems} from "../../../../src/reducers/slices/CartSli
 import { buyCourse } from "../../../services/operations/studentFeaturesApi";
 import { useNavigate } from "react-router";
 import { Spinner } from "../common/Spinner";
+import { getAverageRating } from "../../../services/operations/averageRatingCalculator";
 export const Cart = () => {
     const {cart,numberOfItems} = useSelector((state)=>state.cart);
     const dispatch = useDispatch();
@@ -44,9 +45,9 @@ export const Cart = () => {
                         <div className="text-xl font-semibold text-richblack-5">{course.title}</div>
                         <div className='text-sm font-light text-richblack-200'>{course.category.name}</div>
                         <div className='flex flex-row items-center gap-2'>
-                            <div className='text-yellow-50'>{course.averageRating}</div>
-                            <Rating starValue={course.averageRating} readOnly={true}/>
-                            <div className='text-richblack-200'>{`${course.totalRating} Ratings`}</div>
+                            <div className='text-yellow-50'>{getAverageRating(course)}</div>
+                            <Rating starValue={getAverageRating(course)} readOnly={true}/>
+                            <div className='text-richblack-200'>{`${course?.ratingAndReview?.length} Ratings`}</div>
                         </div>
                     </div> 
                     <div className='flex flex-col gap-3'>

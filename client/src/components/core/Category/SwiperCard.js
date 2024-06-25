@@ -36,7 +36,7 @@ export const SwiperCard = ({topSellingCourses,selectedCategory,heading}) => {
         {
         (selectedCategory? selectedCategory?.course : topSellingCourses)?.map((course)=>(
               !course?.studentsEnrolled?.includes(user?._id) && 
-                <SwiperSlide key={course._id}>
+               course?.status === "Published" && <SwiperSlide key={course._id}>
                 <CourseCard course={course}/>
                 </SwiperSlide>
         ))

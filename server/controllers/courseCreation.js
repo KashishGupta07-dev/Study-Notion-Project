@@ -7,7 +7,6 @@ const Section = require("../models/Section");
 const CourseProgress = require("../models/CourseProgress");
 exports.createCourse = async(request,response)=>{
     try{
-        console.log("Request Body : ",request.body);
         const {courseName,courseDescription,whatYouWillLearn,price,category,tag,instructions,status="Draft"} = request.body;
         const image = request.files.image;
         if(!courseName || !courseDescription || !whatYouWillLearn ||!instructions|| !price || !category || !image||!tag){
@@ -263,7 +262,7 @@ exports.getEnrolledCourses = async(request,response)=>{
                     path:"subSection"
                 }
             }
-        }).exec();
+        }).populate("courseProgress").exec();
         if(!userDetails){
             return response.status(400).json({
                 success:false,
@@ -329,7 +328,7 @@ exports.getFullCourseDetails = async(request,response)=>{
             success:true,
             message:"Fetching Successful",
             courseDetails: courseDetails,
-            courseProgressCount: courseProgressCount?courseProgressCount : [],
+            courseProgressCount: courseProgressCount?courseProgressCount?.completedVideos : [],
         })
     }catch(error){
         console.log("Error in get full course details : ",error);
@@ -348,12 +347,30 @@ exports.InstructorPieDetails= async(request,response)=>{
         const userId = request.user.id;
         const userDetails = await User.findById(userId).populate("additionalDetails").populate({
             path:"courses",
-            populate : {
+            options: { sort: { createdAt: -1 } },
+            populate : [{
+                path:"courseContent",
+                populate:{
+                    path:"subSection"
+                }
+            },{
+                path:"instructor",
+                populate:{
+                    path:"additionalDetails",
+                }
+            },
+            {
+            path : "ratingAndReview"
+            },{
+            path:"category"
+            }
+            ,{
                 path:"courseContent",
                 populate:{
                     path:"subSection"
                 }
             }
+        ]
         }).exec();
 
         if(!userDetails){

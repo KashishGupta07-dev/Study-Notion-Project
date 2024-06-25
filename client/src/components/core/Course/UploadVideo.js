@@ -28,7 +28,6 @@ export const UploadVideo = ({setValue,errors,register,editing,viewing}) => {
             setValue("lectureVideo",e.dataTransfer.files[0]);
             const previewFile = e.dataTransfer.files[0];
             var media = URL.createObjectURL(previewFile);
-            console.log("Media : ",media);
             setPreviewVideo(media);
             };
           }
@@ -51,7 +50,6 @@ export const UploadVideo = ({setValue,errors,register,editing,viewing}) => {
             const previewFile = event.target.files[0];
             setValue("lectureVideo",previewFile);
             var media = URL.createObjectURL(previewFile);
-            console.log("Media : ",media);
             setPreviewVideo(media);
         }
     }

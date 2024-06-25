@@ -5,7 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { SubSectionView } from './SubSectionView';
-export const SectionView = ({editSection,setShowModal,setEditSection,setValue,setEditSectionDetails}) => {
+export const SectionView = ({editSection,setShowModal,setEditSection,setValue,setEditSectionDetails,setError,clearErrors}) => {
     const {course} = useSelector((state)=>state.course);
     function deleteHandler(event,sectionId){
         event.preventDefault();
@@ -43,9 +43,9 @@ export const SectionView = ({editSection,setShowModal,setEditSection,setValue,se
               <div>{section.sectionName}</div>
               </div>
               <div className='flex flex-row gap-2 items-center'>
-              <MdEdit size={"20px"} className='cursor-pointer' onClick={(event)=>editHandler(event,section.sectionName,section._id)}/>
+              <MdEdit size={"20px"} className='cursor-pointer hover:scale-110 hover:text-caribbeangreen-100' onClick={(event)=>editHandler(event,section.sectionName,section._id)}/>
               <div className='pr-4 border-r-[2px] border-richblack-100'>
-              <RiDeleteBin6Fill size={"20px"} className='cursor-pointer' onClick={(event)=>deleteHandler(event,section._id)}/>
+              <RiDeleteBin6Fill size={"20px"} className='cursor-pointer hover:scale-110 hover:text-pink-200' onClick={(event)=>deleteHandler(event,section._id)}/>
               </div>
               <IoMdArrowDropdown size={"20px"}/>
               </div>

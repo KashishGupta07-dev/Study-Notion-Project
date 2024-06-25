@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PieChart from './PieChart'
 import { getInstructorDetailsApi } from '../../../../services/operations/profileApi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from '../../common/Spinner';
 import { useNavigate } from 'react-router';
+import { setCourse } from '../../../../reducers/slices/CourseSlice';
 
 export const InstructorDashboard = () => {
     const [loading,setLoading] = useState(false);
@@ -11,6 +12,7 @@ export const InstructorDashboard = () => {
     const [clickedStudent,setClickedStudent] = useState(true);
     const navigate = useNavigate();
     const [instructorDetails,setInstructorDetails] = useState(null);
+    const dispatch = useDispatch();
     useEffect(()=>{
         setLoading(true);
         getInstructorDetailsApi(token,setInstructorDetails,setLoading);
@@ -21,7 +23,6 @@ export const InstructorDashboard = () => {
         instructorDetails?.courses?.forEach((course)=>{
             courseName = [...courseName,course?.courseName];
         })
-        console.log("Course Names : ",courseName);
         return courseName;
     }
     function dataFinder(){
@@ -29,7 +30,6 @@ export const InstructorDashboard = () => {
         instructorDetails?.courses?.forEach((course)=>{
             data = [...data,course?.studentsEnrolled?.length];
         })
-        console.log("Data : ",data);
         return data;
     }
     function calcTotalStudents(){
@@ -97,10 +97,14 @@ export const InstructorDashboard = () => {
                     {
                         instructorDetails?.courses?.map((course,index)=>(
                             index<=3 && index> 0 && 
-                            <div className='border-[2px] border-blue-100 rounded-lg cursor-pointer' onClick={()=>navigate(`/dashboard/my-coourses`)} key={course?.id}>
-                                <img src={course?.thumbnail} alt='thumbnail' className='w-[230px] h-[130px] object-cover rounded-lg px-2 py-2'/>
-                                <div className='text-lg text-richblack-5 font-semibold  px-2 '>{course?.courseName}</div>
-                                <div className='flex flex-row justify-around text-richblack-400 text-sm'>
+                            <div className='border-[2px] border-blue-100 rounded-lg cursor-pointer' onClick={()=>{
+                                dispatch(setCourse(course));
+                                localStorage.setItem("courseDetail",JSON.stringify(course));
+                                navigate(`/dashboard/edit-course/${course._id}`);
+                                }} key={course?.id}>
+                                <img src={course?.thumbnail} alt='thumbnail' className='w-[230px] h-[130px] object-cover rounded-lg px-2 py-2' key={course?.id}/>
+                                <div className='text-lg text-richblack-5 font-semibold  px-2 ' key={course?.id}>{course?.courseName}</div>
+                                <div className='flex flex-row justify-around text-richblack-400 text-sm' key={course?.id}> 
                                     <div>{`${course?.studentsEnrolled?.length} students`}</div>
                                     <div> | </div>
                                     <div>{`Rs. ${course?.price}`}</div>

@@ -19,7 +19,7 @@ app.listen(PORT,()=>{
     console.log(`Server Started Successfully at port : ${PORT}`);
 });
 app.use(cors({
-	origin:"https://study-notion-frontend-8ovo.onrender.com",
+	origin:"https://study-notion-frontend-8ovo.onrender.com/",
 	credentials:true,
 }))
 app.use(fileUpload({

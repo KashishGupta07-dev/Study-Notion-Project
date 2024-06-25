@@ -17,7 +17,6 @@ exports.resetPasswordToken = async(request,response)=>{
         const url = `http://localhost:3000/reset-password/${token}`;
         const updatedUser = await User.findOneAndUpdate({email:email},{token:token,tokenExpiresIn:Date.now()+5*60*1000},{new:true});
       await  mailSender(email,"Password Reset Link",`Password Reset Link : ${url}`);
-        console.log(updatedUser);
         return response.status(200).json({
             success:true,
             message:"Mail Sent Successfully for password reset",
@@ -55,7 +54,6 @@ exports.resetPassword = async(request,response)=>{
         };
         const newPassword = await bcrypt.hash(password,10);
         const updatedUser = await User.findOneAndUpdate({token:token},{password:newPassword},{new:true});
-        console.log(updatedUser);
         return response.status(200).json({
             success:true,
             message:"Password Reset Successfully",

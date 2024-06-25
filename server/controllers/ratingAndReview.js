@@ -44,7 +44,7 @@ exports.createRating = async(request,response)=>{
             populate:{
                 path:"subSection"
             }
-        }).exec();;
+        }).exec();
         return response.status(200).json({
             success:true,
             message:"Rating and review created",

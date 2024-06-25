@@ -21,8 +21,7 @@ export const ReviewModal = ({
   const { token } = useSelector((state) => state.auth);
   function postReview(data) {
     setLoading(true);
-    dispatch(postRatingApi(courseDetails?._id,data.rating,data.review,token,setCourseDetails,setLoading));
-    setReviewModal(false);
+    dispatch(postRatingApi(courseDetails?._id,data.rating,data.review,token,setCourseDetails,setLoading,setReviewModal));
   }
   return (
     <div

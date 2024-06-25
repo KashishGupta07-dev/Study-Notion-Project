@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProgressApi } from "../../../services/operations/coursesApi";
+import { setCompletedLectures } from "../../../reducers/slices/ViewCourseSlice";
 export const ViewVideo = () => {
   const { courseId, sectionId, subSectionId } = useParams();
   const [videoData, setVideoData] = useState([]);
@@ -9,6 +11,7 @@ export const ViewVideo = () => {
   const navigate = useNavigate();
   const [play, setPlay] = useState(false);
   const playerRef = useRef();
+  const {token} = useSelector((state)=>state.auth);
   const {
     courseDetails,
     subSectionDetails,
@@ -16,6 +19,7 @@ export const ViewVideo = () => {
     totalLectures,
     completedLectures,
   } = useSelector((state) => state.viewCourse);
+  const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
     if (
@@ -122,6 +126,9 @@ export const ViewVideo = () => {
       );
     }
   }
+  function markHandler(){
+    dispatch(updateProgressApi(courseId,subSectionId,token,setCompletedLectures));
+  }
   return (
     <div className="h-[calc(100vh-3.5rem)] overflow-y-auto">
       <div className="w-11/12 mx-auto mt-3">
@@ -157,7 +164,7 @@ export const ViewVideo = () => {
           {videoEnded && (
             <div className="absolute w-full h-full justify-center items-center top-0 flex gap-y-4 flex-col bg-white bg-opacity-45">
               {!alreadyMarkedLectureAsCompleted() && (
-                <button className="bg-yellow-50 text-black rounded-md font-bold w-fit px-4 py-2">
+                <button className="bg-yellow-50 text-black rounded-md font-bold w-fit px-4 py-2" onClick={markHandler}>
                   Mark As Completed
                 </button>
               )}

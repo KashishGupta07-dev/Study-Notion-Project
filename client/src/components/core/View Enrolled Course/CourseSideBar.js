@@ -76,7 +76,7 @@ export const CourseSideBar = ({setReviewModal}) => {
                 {
                   section?.subSection && section?.subSection?.length>0 && section?.subSection?.map((subSection)=>(
                     <div className={`${activeSubSection === subSection._id && "bg-yellow-50 text-black font-semibold"}  flex flex-row px-2 gap-x-2 py-2 cursor-pointer`} key={subSection?._id} onClick={()=>navigate(`/view-course/${courseDetails?._id}/section/${section?._id}/sub-section/${subSection?._id}`)}>
-                      <input type="checkbox" size={"30px"}/>
+                      <input type="checkbox" checked={completedLectures?.includes(subSection?._id)} size={"30px"} readOnly/>
                       <div>{subSection?.title}</div> 
                     </div>
                   ))

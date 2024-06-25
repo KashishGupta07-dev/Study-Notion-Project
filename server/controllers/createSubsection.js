@@ -21,8 +21,6 @@ exports.createSubSection = async(request,response)=>{
             title,timeDuration,description,videoUrl:resultAfterUpload.secure_url,
         });
         const updatedSection = await Section.findByIdAndUpdate(sectionId,{$push:{subSection:createdSubsection._id}},{new:true}).populate("subSection").exec();
-        console.log("Section : ",updatedSection);
-        console.log("Course Id : ",courseId);
         const updatedCourse = await Course.findById(courseId).populate({
             path:"instructor",
             populate:{
@@ -122,8 +120,8 @@ exports.editSubSection = async(req,res)=>{
 
 exports.deleteSubSection = async(request,response)=>{
     try{
-        const {subSectionId,sectionId} = request.body;
-        if(!sectionId || !subSectionId){
+        const {subSectionId,sectionId,courseId} = request.body;
+        if(!sectionId || !subSectionId || !courseId){
             return response.status(400).json({
                 success:false,
                 message:"All fields are required",
@@ -138,10 +136,24 @@ exports.deleteSubSection = async(request,response)=>{
         };
         await SubSection.findByIdAndDelete(subSectionId);
         const updatedSection = await Section.findByIdAndUpdate(sectionId,{$pull:{subSection:subSectionId}},{new:true});
+        const updatedCourse = await Course.findById(courseId).populate({
+            path:"instructor",
+            populate:{
+                path:"additionalDetails",
+            }
+        })
+        .populate("ratingAndReview")
+        .populate("category")
+        .populate({
+            path:"courseContent",
+            populate:{
+                path:"subSection"
+            }
+        }).exec()
         return response.status(200).json({
             success:true,
             message:"Subsection deleted successfully",
-            updatedSection,
+            updatedCourse,
         })
     }catch(error){
         return response.status(400).json({

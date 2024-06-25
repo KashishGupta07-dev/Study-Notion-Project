@@ -40,6 +40,8 @@ export const courseApi = {
     ENROLLED_COURSES_API : "course/getEnrolledCourses",
     CREATE_RATING_API:"course/createRating",
     GET_ALL_REVIEWS_API : "course/getReviews",
+    DELETE_SUBSECTION_API : "course/deleteSubSection",
+    UPDATE_COURSE_PROGRESS_API : "course/updateProgress"
 }
 
 

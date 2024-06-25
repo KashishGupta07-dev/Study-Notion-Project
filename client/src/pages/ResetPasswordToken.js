@@ -4,6 +4,7 @@ import { GoArrowLeft } from 'react-icons/go';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { generateResetPasswordToken } from '../services/operations/authApi';
+import { setResetToken } from '../reducers/slices/AuthSlice';
 export const ResetPasswordToken = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const ResetPasswordToken = () => {
     
     async function formSubmitHandler(event){
         event.preventDefault();
-        dispatch(generateResetPasswordToken(formData?.email,navigate,setMailSent));
+        dispatch(generateResetPasswordToken(formData?.email,navigate,setMailSent,setResetToken));
     }
   return (
     <form onSubmit={formSubmitHandler} className='flex flex-col w-[38%] my-auto max-w-maxContent mx-auto justify-center items-start'>

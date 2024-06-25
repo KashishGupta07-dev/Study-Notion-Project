@@ -5,9 +5,7 @@ import {setUser} from "../../reducers/slices/ProfileSlice"
 import {setCourse,setStep} from "../../reducers/slices/CourseSlice"
 export function createCourse(formData,token){
     return async(dispatch)=>{
-        console.log("Details :",formData)
     const toastId = toast.loading("Loading...");
-    console.log("TOken: ",token);
     try{
         const response = await apiConnector("POST",courseApi.CREATE_COURSE_API,formData,{
             "Content-Type": "multipart/form-data",
@@ -20,9 +18,9 @@ export function createCourse(formData,token){
             console.log(message);
             return;
         }
-        console.log("Response Created Course : ",response?.data.createdCourse);
         dispatch(setUser(response?.data.updatedUser));
         dispatch(setCourse(response?.data.createdCourse));
+        localStorage.setItem("courseDetail",JSON.stringify(response?.data.createdCourse));
         localStorage.setItem("user",JSON.stringify(response?.data.updatedUser));
         dispatch(setStep(2));
     }catch(error){
@@ -51,6 +49,7 @@ export function addSectionApi (formData,token){
             }
             toast.success("Section Created Successfully")
             dispatch(setCourse(response?.data.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
         }catch(error){
             toast.error("Section Creation Failed");
             console.log(error);
@@ -77,6 +76,7 @@ export function editSectionApi(formData,token){
             }
             toast.success("Section Updated Successfully")
             dispatch(setCourse(response?.data.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
         }catch(error){
             toast.error("Section Updation Failed");
             console.log(error);
@@ -105,6 +105,7 @@ export function deleteSectionApi(formData,token){
             }
             toast.success("Section Deleted Successfully")
             dispatch(setCourse(response?.data.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
         }catch(error){
             toast.error("Section Deletion Failed");
             console.log(error);
@@ -132,6 +133,7 @@ export function editCourseApi(formData,token){
             }
             toast.success("Course Updated Successfully");
             dispatch(setCourse(response?.data?.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
             dispatch(setStep(2));
         }catch(error){
             toast.error("Course Updation Failed");
@@ -184,7 +186,6 @@ export function deleteCourseApi(courseId,categoryId,token,setCourses){
                     return;
                 }
                 toast.success("Course Deletion Successful");
-                console.log("Data : ",response?.data);
                 setCourses(response?.data?.updatedUser?.courses);
             }catch(error){
                 toast.error("Course Deletion Failed");
@@ -213,6 +214,7 @@ export function createSubSection(formData,token){
             }
             toast.success("Sub Section Creation Successful");
             dispatch(setCourse(response?.data?.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
         }catch(error){
             toast.error("Sub Section Creation Failed");
             console.log(error);
@@ -241,6 +243,7 @@ export function editSubSectionApi(formData,token){
             }
             toast.success("Sub Section Updation Successful");
             dispatch(setCourse(response?.data?.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
         }catch(error){
             toast.error("Sub Section Updation Failed");
             console.log(error);
@@ -251,7 +254,7 @@ export function editSubSectionApi(formData,token){
 
 
 
-export function getCourseDetailsApi(courseId,setCourseDetails){
+export function getCourseDetailsApi(courseId,setCourseDetails,setLoading){
     return async(dispatch)=>{
         const toastId = toast.loading("Loading...");
         try{
@@ -269,11 +272,12 @@ export function getCourseDetailsApi(courseId,setCourseDetails){
             console.log(error);
         }
         toast.dismiss(toastId);
+        setLoading(false);
     }
 } 
 
 
-export function getEnrolledCoursesApi(token,setUserDetails){
+export function getEnrolledCoursesApi(token,setUserDetails,setLoading){
     return async(dispatch)=>{
         const toastId = toast.loading("Loading...");
         try{
@@ -293,6 +297,7 @@ export function getEnrolledCoursesApi(token,setUserDetails){
             console.log(error);
         }
         toast.dismiss(toastId);
+        setLoading(false);
     }
 }
 
@@ -337,7 +342,7 @@ export function getFullCourseDetailsApi(courseId,token,setCompletedLectures,setC
 
 
 
-export function postRatingApi(courseId,rating,review,token,setCourseDetails,setLoading){
+export function postRatingApi(courseId,rating,review,token,setCourseDetails,setLoading,setReviewModal){
     return async(dispatch)=>{
         const toastId = toast.loading("Loading...");
         try{
@@ -359,6 +364,7 @@ export function postRatingApi(courseId,rating,review,token,setCourseDetails,setL
             }
          dispatch(setCourseDetails(response?.data?.courseDetails));
             toast.success("Rating Posted Successfully");
+            setReviewModal(false);
         }catch(error){
             toast.error("Rating Not Created");
             console.log(error);
@@ -385,5 +391,61 @@ export function getAllRatingsApi(setRatings){
             toast.error("Ratings Not Found");
             console.log(error);
         }  
+    }
+}
+
+
+
+export const deleteSubSectionApi = (sectionId,subSectionId,courseId,token)=>{
+    return async(dispatch)=>{
+        try{
+            const response = await apiConnector("POST",courseApi.DELETE_SUBSECTION_API,{
+                sectionId : sectionId,
+                subSectionId:subSectionId,
+                courseId:courseId
+            },{
+                 Authorization:`Bearer ${token}`
+            });
+            const success = response?.data.success;
+            const message = response?.data.message;
+            if(!success){
+                toast.error("Section Not Deleted");
+                console.log(message);
+                return;
+            }
+            dispatch(setCourse(response?.data.updatedCourse));
+            localStorage.setItem("courseDetail",JSON.stringify(response?.data.updatedCourse));
+        }catch(error){
+            toast.error("Section Not Deleted");
+            console.log(error);
+        }  
+    }
+}
+
+
+export const updateProgressApi = (courseId,subSectionId,token,setCompletedLectures)=>{
+    return async(dispatch)=>{
+        const toastId = toast.loading("loading...");
+        try{
+            const response = await apiConnector("PUT",courseApi.UPDATE_COURSE_PROGRESS_API,{
+                subSectionId:subSectionId,
+                courseId:courseId
+            },{
+                 Authorization:`Bearer ${token}`
+            });
+            const success = response?.data.success;
+            const message = response?.data.message;
+            if(!success){
+                toast.error("Progress Not Updated");
+                console.log(message);
+                return;
+            }
+            dispatch(setCompletedLectures([...response?.data?.getCourseProgress?.completedVideos]));
+            toast.success("Video Marked As Completed");
+        }catch(error){
+            toast.error("Section Not Deleted");
+            console.log(error);
+        }  
+        toast.dismiss(toastId);
     }
 }

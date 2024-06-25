@@ -8,6 +8,7 @@ export const Upload = ({register,setValue,getValues}) => {
         inputRef.current.click();
     }
     const [previewImage,setPreviewImage] = useState(null);
+    // eslint-disable-next-line
     const [file,setFile] = useState(null);
     function handleDrag(event){
         event.preventDefault();
@@ -15,23 +16,25 @@ export const Upload = ({register,setValue,getValues}) => {
     useEffect(() => {
         if (editCourse && course?.thumbnail) {
             setValue("courseThumbnail", course?.thumbnail);
+            setFile(course?.thumbnail);
             setPreviewImage(course?.thumbnail);
         }
-        register("courseThumbnail");
-    }, [editCourse, course, register, setValue]);
+        register("courseThumbnail",{
+            required: { value: true, message: "Please Upload a Course Thumbnail" }
+        });
+        // eslint-disable-next-line
+    }, []);
     function handleDrop(e){
         e.preventDefault();
         if (e.dataTransfer.files[0]) {
             setFile(e.dataTransfer.files[0]);
             const previewFile = e.dataTransfer.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(previewFile);
-            reader.onloadend = () => {
-              setPreviewImage(reader.result);
-            };
+            var media = URL.createObjectURL(previewFile);
+            setPreviewImage(media);
           }
     }
-    function cancelHandler(){
+    function cancelHandler(event){
+        event.preventDefault();
         setPreviewImage(null);
         setFile(null);
         setValue("courseThumbnail",null);
@@ -41,22 +44,16 @@ export const Upload = ({register,setValue,getValues}) => {
         if(event.target.files[0]){
             setFile(event.target.files[0]);
             const previewFile = event.target.files[0];
-            const reader = new FileReader();
-            reader.readAsDataURL(previewFile);
-            reader.onloadend = ()=>{
-                setPreviewImage(reader.result);
-            };
+            setValue("courseThumbnail",previewFile);
+            var media = URL.createObjectURL(previewFile);
+            setPreviewImage(media);
         }
     }
-    useEffect(()=>{
-        setValue("courseThumbnail",file);
-        // eslint-disable-next-line
-    },[file]); 
   return (
     !previewImage?
     <div className='w-full min-h-[250px] bg-richblack-700 border-[2px] border-dotted border-richblack-300 rounded-lg cursor-pointer'  onClick={clickHandler} onDrop={handleDrop} onDragOver={handleDrag}>
         <div className='flex flex-col w-5/6 mx-auto gap-4 justify-center min-h-[250px]'>
-        <input accept="image/*,.jpeg,.jpg,.png" type="file" style={{display: "none"}} onChange={changeHandler} ref={inputRef}/>
+        <input accept="image/*,.jpeg,.jpg,.png" type="file" style={{display: "none"}} onChange={changeHandler} ref={inputRef} name='courseThumbnail'/>
             <div className='w-14 aspect-square flex items-center justify-center rounded-full text-yellow-50 bg-pure-greys-800 mx-auto'>
                 <IoMdCloudUpload size={"30px"} className='object-cover'/>
             </div>

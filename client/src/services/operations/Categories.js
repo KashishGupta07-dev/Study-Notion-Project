@@ -14,7 +14,7 @@ export const getAllCategories = async(setLoading,setCategories)=>{
 }
 
 
-export function getCategoryPageDetailsApi(categoryName,setSelectedCategory,setDifferentCategory,setTopSellingCourses,navigate){
+export function getCategoryPageDetailsApi(categoryName,setSelectedCategory,setDifferentCategory,setTopSellingCourses,navigate,setLoading){
     return async()=>{
         const toastId = toast.loading("Loading...");
         try{
@@ -36,5 +36,6 @@ export function getCategoryPageDetailsApi(categoryName,setSelectedCategory,setDi
             navigate("/");
         }
         toast.dismiss(toastId);
+        setLoading(false);
     }
 }

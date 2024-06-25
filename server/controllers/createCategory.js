@@ -12,7 +12,6 @@ exports.createCategory = async(request,response)=>{
         const createdCategory = await Category.create({
             name,description
         });
-        console.log(createdCategory);
         return response.status(200).json({
             success:true,
             message:"Category Created Successfully",
@@ -95,7 +94,6 @@ exports.categoryPageDetails = async(request,response)=>{
             }
         ],
         }).exec();
-        console.log("Different Category : ",differentCategory);
         const bestCourses = await Course.aggregate([
             {
                 $addFields:{

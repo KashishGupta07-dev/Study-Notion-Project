@@ -5,6 +5,7 @@ const { createSection, editSection, deleteSection } = require("../controllers/cr
 const { createSubSection, editSubSection, deleteSubSection } = require("../controllers/createSubsection");
 const { createCategory, showAllCategories, categoryPageDetails } = require("../controllers/createCategory");
 const { createRating, getAverageRating, getAllRating } = require("../controllers/ratingAndReview");
+const { pushCompletedVideos, getCourseProgress } = require("../controllers/updateCourseProgress");
 const router = express.Router();
 
 router.post("/createCourse", auth, isInstructor, createCourse);
@@ -20,7 +21,8 @@ router.get("/getEnrolledCourses",auth,isStudent,getEnrolledCourses);
 router.post("/getCourseDetails", showCourse);
 router.post("/getFullCourseDetails",auth,isStudent,getFullCourseDetails);
 router.post("/deleteCourse",auth,isInstructor,deleteCourse);
-
+router.put("/updateProgress",auth,isStudent,pushCompletedVideos);
+router.get("/getProgress",auth,isStudent,getCourseProgress)
 
 router.post("/createCategory", auth, isAdmin, createCategory);
 router.get("/showAllCategories", showAllCategories);

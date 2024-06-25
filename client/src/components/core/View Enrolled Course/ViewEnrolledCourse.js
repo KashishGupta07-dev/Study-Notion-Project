@@ -17,7 +17,7 @@ export const ViewEnrolledCourse = () => {
     setLoading(true);
     dispatch(getFullCourseDetailsApi(courseId,token,setCompletedLectures,setCourseDetails,setSectionDetails,setSubSectionDetails,setTotalLectures,setLoading));
     // eslint-disable-next-line
-  },[]);
+  },[reviewModal]);
   return (
     loading?<Spinner/> : 
     <div className='relative flex min-h-[calc(100vh-3.5rem)]'>

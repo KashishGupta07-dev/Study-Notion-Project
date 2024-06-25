@@ -48,35 +48,33 @@ export const MyProfile = () => {
             <FaEdit />
         </button>
         </div>
-         <div className='flex flex-col w-[500px] gap-4'>
-            <div className='flex flex-row text-richblack-200 gap-72'>
-              <div className='flex flex-col gap-2'>
+         <div className='flex flex-row w-[500px] gap-4 text-richblack-200 justify-between'>
+         <div className='flex flex-col gap-y-2'>
+              <div className='flex flex-col gap-1'>
               <div>First Name</div>
               <div className='text-richblack-5 text-sm'>{user?.firstName}</div>
               </div>
-              <div className='flex flex-col gap-2'>
-              <div>Last Name</div>
-              <div className='text-richblack-5 text-sm'>{user?.lastName}</div>
-              </div>
-            </div>
-            <div className='flex flex-row text-richblack-200 justify-between'>
-              <div className='flex flex-col gap-2'>
+              <div className='flex flex-col gap-1'>
               <div>Email</div>
               <div className='text-richblack-5 text-sm'>{user?.email}</div>
               </div>
-              <div className='flex flex-col gap-2'>
+              <div className='flex flex-col gap-1'>
+              <div>Gender</div>
+              <div className='text-richblack-5 text-sm'>{user?.additionalDetails?.gender?user?.additionalDetails?.gender:"Add Gender"}</div>
+              </div>
+            </div>
+            <div className='flex flex-col gap-y-2'>
+            <div className='flex flex-col gap-1'>
+              <div>Last Name</div>
+              <div className='text-richblack-5 text-sm'>{user?.lastName}</div>
+              </div>
+              <div className='flex flex-col gap-1'>
               <div>Phone Number</div>
               <div className='text-richblack-5 text-sm'>{
                 user?.additionalDetails?.contactNumber?user?.additionalDetails?.contactNumber:"Add Contact Number"
                 }</div>
-              </div>
-            </div>
-            <div className='flex flex-row text-richblack-200 justify-between'>
-              <div className='flex flex-col gap-2'>
-              <div>Gender</div>
-              <div className='text-richblack-5 text-sm'>{user?.additionalDetails?.gender?user?.additionalDetails?.gender:"Add Gender"}</div>
-              </div>
-              <div className='flex flex-col gap-2'>
+                </div>
+                <div className='flex flex-col gap-1'>
               <div>Date Of Birth</div>
               <div className='text-richblack-5 text-sm'>{
                 user?.additionalDetails?.dateOfBirth?user?.additionalDetails?.dateOfBirth:"Add Contact Number"

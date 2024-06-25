@@ -5,6 +5,7 @@ const Course = require("../models/Course");
 const mongoose = require("mongoose");
 const sendMail = require("../utils/mailSender");
 const crypto = require("crypto");
+const CourseProgress = require("../models/CourseProgress");
 require("dotenv").config();
 
 exports.capturePayment = async(request,response)=>{
@@ -118,13 +119,16 @@ const enrollStudent = async(courses,userId,response)=>{
                 message:"Course Not Found",
             })
         }
-        const enrolledStudent = await User.findByIdAndUpdate(userId,{$push:{courses:courseId}},{new:true});
+        const courseProgressCount = await CourseProgress.create({
+            courseId:courseId,
+            userId:userId,
+        });
+        const enrolledStudent = await User.findByIdAndUpdate(userId,{$push:{courses:courseId,courseProgress:courseProgressCount._id}},{new:true});
         const emailResponse = await sendMail(enrolledStudent.email,"Thanks For Purchasing Course",
             `Thanks For Purchasing Courses:
             Checkout my courses page for seeing all courses
             `
         )
-        console.log("Email Response : ",emailResponse);
     }
 }catch(error){
     return response.status(400).json({

@@ -10,7 +10,9 @@ export const Instructions = ({register,setValue,getValues}) => {
         setValue("instructions",(course?.instructions[0]).split(","));
         setInstructions((course?.instructions[0]).split(","));
       }
-        register("instructions");
+        register("instructions",{
+          required: { value: true, message: "Please Enter Atleast One Instruction" },
+        });
         // eslint-disable-next-line
     },[editCourse, course, register, setValue])
     useEffect(()=>{
@@ -18,13 +20,18 @@ export const Instructions = ({register,setValue,getValues}) => {
         // eslint-disable-next-line
     },[instructions]);
     function pressHandler(event){
-        event.preventDefault();
-            if(instructions.some((i)=>i === inputRef.current.value || inputRef.current.value === "")){
-                setInputFieldValue("");
+      event.preventDefault();
+            if(instructions.some((i)=>i === inputRef.current.value.trim()) || inputRef.current.value.trim() === ""){ 
+              setInputFieldValue("");
                 return;
             }
             setInstructions([...instructions,inputRef.current.value]);
             setInputFieldValue("");
+    }
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        pressHandler(event);
+      }
     }
     function changeHandler(event){
         if(event.target.value===","){
@@ -45,7 +52,8 @@ export const Instructions = ({register,setValue,getValues}) => {
             type="text"
             name="instructions"
             value={inputFieldValue}
-            onInput={changeHandler}
+            onChange={changeHandler}
+            onKeyDown={handleKeyPress}
             ref={inputRef}
             className="bg-richblack-700 rounded-md px-4 py-3  text-richblack-5 placeholder-richblack-200 w-full  outline-none"
             style={{

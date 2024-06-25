@@ -8,7 +8,6 @@ try{
     const response = await apiConnector("POST",contactUsApi.CONTACT_US_FORM_API,{
         firstName,lastName,email,countryCode,phoneNumber,message
     });
-    console.log("Contact Us Response : ",response);
     const success = response?.data?.success;
     const responseMessage = response?.data?.message;
 

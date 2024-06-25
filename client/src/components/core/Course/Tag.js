@@ -10,16 +10,18 @@ export const Tag = ({register,setValue,errors,getValues}) => {
         setValue("tag",(course?.tag[0]).split(","));
         setTag((course?.tag[0]).split(","));
       }
-        register("tag");
+        register("tag",{
+          required: { value: true, message: "Please Enter Atleast One Tag" },
+        });
         // eslint-disable-next-line
-    },[editCourse, course, register, setValue])
+    },[editCourse, course, register,setValue])
     useEffect(()=>{
         setValue("tag",tag);
         // eslint-disable-next-line
     },[tag]);
     function pressHandler(event){
         if(event.key === "Enter" || event.key===","){
-            if(tag.some((t)=>t === event.target.value || event.target.value === "")){
+            if(tag.some((t)=>t === event.target.value.trim()) || event.target.value.trim() === ""){
                 setInputFieldValue("");
                 return;
             }

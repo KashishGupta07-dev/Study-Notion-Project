@@ -28,7 +28,6 @@ export const SubSectionForm = ({ adding,viewing,editing, setShowSubSectionForm ,
   },[])
   function isFormUpdated(){
     const allValues = getValues();
-    console.log("All Values SUbsection form : ",allValues);
     if(allValues.lectureTitle === editing.title && allValues.lectureDescription === editing.description && allValues.lectureVideo === editing.videoUrl){
       return false;
     }
@@ -63,7 +62,6 @@ export const SubSectionForm = ({ adding,viewing,editing, setShowSubSectionForm ,
     formData.append("description",data.lectureDescription);
     formData.append("video",data.lectureVideo);
     formData.append("sectionId",sectionId);
-    console.log("Data : ",data.lectureTitle,data.timeDuration,data.lectureDescription,courseId,sectionId,data.lectureVideo);
     dispatch(createSubSection(formData,token));
     setShowSubSectionForm(false);
     };

@@ -21,6 +21,8 @@ export const CourseBuilderForm = () => {
         setValue,
         getValues,
         handleSubmit,
+        setError,
+        clearErrors,
         formState:{errors}
     } = useForm();
     // eslint-disable-next-line
@@ -31,8 +33,15 @@ export const CourseBuilderForm = () => {
     function addSectionHandler(event){
       event.preventDefault();
       const allValues = getValues();
+      if(allValues.sectionName.trim() === "" || course?.courseContent?.some((section)=>section.sectionName === allValues.sectionName.trim())){
+        setValue("sectionName","");
+        const error = { type: "string", message: "Please Enter Section Name" };
+        setError("sectionName",error);
+        return;
+      }
+      clearErrors("sectionName");
       const formData = new FormData();
-      formData.append("sectionName",allValues.sectionName);
+      formData.append("sectionName",allValues.sectionName.trim());
       formData.append("courseId",course?._id);
       dispatch(addSectionApi(formData,token));
       setValue("sectionName","");
@@ -40,12 +49,19 @@ export const CourseBuilderForm = () => {
     function editSectionHandler(event){
       event.preventDefault();
       const allValues = getValues();
-      if(editSectionDetails.sectionName === allValues.sectionName ){
+      if(editSectionDetails.sectionName.trim() === allValues.sectionName.trim()){
         toast.error("You Have Not Updated The Section");
         return;
       }
+      if(allValues.sectionName?.trim() === ""){
+        setValue("sectionName","");
+        const error = { type: "string", message: "Please Enter Section Name" };
+        setError("sectionName",error);
+        return;
+      }
+      clearErrors("sectionName");
       const formData = new FormData();
-      formData.append("sectionName",allValues.sectionName);
+      formData.append("sectionName",allValues.sectionName.trim());
       formData.append("sectionId",editSectionDetails.sectionId);
       formData.append("courseId",course._id);
       dispatch(editSectionApi(formData,token));
@@ -68,7 +84,15 @@ export const CourseBuilderForm = () => {
       setEditSectionDetails(false);
     }
     function submitHandler(data){
-       console.log("Hello ");
+      if(course?.courseContent?.length === 0){
+        toast.error("Please Add Atleast One Section");
+        return;
+      }
+      if(course?.courseContent?.some((section)=>section?.subSection?.length === 0)){
+        toast.error("Please Add Atleast One Sub Section For Each Section");
+        return;
+      }
+        dispatch(setStep(3));
     }
   return (
     loading?<Spinner/>:
@@ -87,12 +111,7 @@ export const CourseBuilderForm = () => {
             style={{
               boxShadow: "rgba(255, 255, 255, 0.3) 0px -2px 0px inset",
             }}
-            {...register("sectionName", {
-              required: {
-                value: true,
-                message: "Please Enter Section Name",
-              },
-            })}
+            {...register("sectionName")}
           />
           {errors.sectionName && (
             <span className="mt-1 text-[12px] text-yellow-100">
@@ -111,6 +130,7 @@ export const CourseBuilderForm = () => {
           {
             editSection&&<div className='text-richblack-400 underline cursor-pointer' onClick={(event)=>{
               event.preventDefault();
+              setEditSection(false);
               setEditSectionDetails(null);
               setValue("sectionName","");
             }}>Cancel Edit</div>
@@ -118,7 +138,7 @@ export const CourseBuilderForm = () => {
           </div>
         }
         <div>
-        <SectionView setEditSectionDetails={setEditSectionDetails} editSection={editSection} setEditSection={setEditSection} setValue={setValue} setShowModal={setShowModal}/>
+        <SectionView setEditSectionDetails={setEditSectionDetails} editSection={editSection} setEditSection={setEditSection} setValue={setValue} setShowModal={setShowModal} setError={setError} clearErrors={clearErrors}/>
         </div>
         </label>
     </div>
@@ -131,10 +151,7 @@ export const CourseBuilderForm = () => {
           dispatch(setEditCourse(true));
           dispatch(setStep(1));
         }} className='bg-richblack-400 font-bold px-5 py-2 rounded-lg'>Back</button>
-        <button className='flex gap-3  items-center bg-yellow-50 font-bold px-5 py-2 rounded-lg' type='submit' onClick={(e)=>{
-          e.preventDefault();
-          dispatch(setStep(3));
-        }}>
+        <button className='flex gap-3  items-center bg-yellow-50 font-bold px-5 py-2 rounded-lg' type='submit'>
         <div>Next</div>
         <FaAngleRight/>
         </button>

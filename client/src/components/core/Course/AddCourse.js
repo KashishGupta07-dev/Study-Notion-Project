@@ -24,14 +24,13 @@ export const AddCourse = () => {
     },
   ];
   useEffect(()=>{
-    if(editCourse){
-    dispatch(setStep(1));
-    }
-    else{
-    dispatch(setStep(1));
+    if(!editCourse){
     dispatch(setEditCourse(false));
     dispatch(setCourse(null));
+    localStorage.setItem("courseDetail",JSON.stringify(null));
+    localStorage.setItem("editCourse",JSON.stringify(false));
     }
+    dispatch(setStep(1));
         // eslint-disable-next-line
   },[])
   const { step } = useSelector((state) => state.course);
