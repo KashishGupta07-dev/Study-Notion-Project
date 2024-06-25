@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router'
 import { CourseSideBar } from './CourseSideBar'
-import { ReviewModal } from '../Rating And Review/ReviewModal';
+import { ReviewModal } from '../RatingAndReview/ReviewModal';
 import { useSelector } from 'react-redux';
 import { setCompletedLectures,setCourseDetails,setSectionDetails,setSubSectionDetails,setTotalLectures } from '../../../reducers/slices/ViewCourseSlice';
 import { useDispatch } from 'react-redux';

@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import { FreeMode, Autoplay} from "swiper/modules";
-import { RatingCard } from "../Rating And Review/RatingCard";
+import { RatingCard } from "../RatingAndReview/RatingCard";
 
 export default function ReviewSection() {
   const dispatch = useDispatch();
