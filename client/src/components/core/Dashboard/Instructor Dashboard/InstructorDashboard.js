@@ -96,7 +96,7 @@ export const InstructorDashboard = () => {
                 <div className='flex flex-row gap-x-3 justify-around px-4 pb-4'>
                     {
                         instructorDetails?.courses?.map((course,index)=>(
-                            index<=3 && index> 0 && 
+                            index<3 && index>=0 && 
                             <div className='border-[2px] border-blue-100 rounded-lg cursor-pointer' onClick={()=>{
                                 dispatch(setCourse(course));
                                 localStorage.setItem("courseDetail",JSON.stringify(course));

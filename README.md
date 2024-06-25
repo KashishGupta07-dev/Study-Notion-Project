@@ -2,7 +2,7 @@
 
 StudyNotion is a comprehensive educational platform aimed at providing a seamless experience for students and educators alike. It offers a range of features that facilitate learning, collaboration, and resource sharing.
 
-![StudyNotion Logo](https://res.cloudinary.com/dvpulu3cc/image/upload/v1702489710/Screenshot_2023-12-13_231558_dwyhv3.png)
+![StudyNotion Logo](https://res.cloudinary.com/dgmvticqo/image/upload/fl_preserve_transparency/v1719333686/Kashish/Screenshot_2023-12-13_231558_dwyhv3_vm0lu5.jpg)
 
 
 ## DESCRIPTION
@@ -46,7 +46,7 @@ StudyNotion is built using the following technologies:
 
 ## ARCHITECTURE DIAGRAM
 
-![Architecture Diagram](https://res.cloudinary.com/dvpulu3cc/image/upload/v1699036870/Screenshot_2023-11-04_000952_argzj8.jpg)
+![Architecture Diagram](https://res.cloudinary.com/dgmvticqo/image/upload/fl_preserve_transparency/v1719334164/Kashish/Screenshot_2023-11-04_000952_argzj8_gub5p0.jpg)
 
 ## API ROUTE
 
@@ -76,7 +76,7 @@ StudyNotion is built using the following technologies:
 |--------------------------|----------------------------------------|
 | CAPTURE_PAYMENT_API           | `api/v1/payment/capturePayment`        |
 | VERIFY_PAYMENT_API            | `api/v1/payment/verifyPayment`         |
-| SEND_MAIL_API| `api/v1/payment/sendMail`|
+| SEND_MAIL_API                  | `api/v1/payment/sendMail`|
 
 ### COURSE 
 
@@ -90,51 +90,45 @@ StudyNotion is built using the following technologies:
 | EDIT_COURSE_API              | `api/v1/course/updateCourse`                   |
 | ADD_SECTION_API             | `api/v1/course/addSection`                |
 | EDIT_SECTION_API              | `api/v1/course/updateSection`                |
-| UPDATE_SUBSECTION            | `api/v1/course/updateSubSection`             |
-| GET_ALL_INSTRUCTOR_COURSES   | `api/v1/course/getAllCourses`         |
-| DELETE_SECTION               | `api/v1/course/deleteSection`                |
-| DELETE_SUBSECTION            | `api/v1/course/deleteSubSection`             |
-| DELETE_COURSE                | `api/v1/course/deleteCourse`                 |
-| GET_FULL_COURSE_DETAILS | `api/v1/course/getFullCourseDetails`|
-| LECTURE_COMPLETION           | `api/v1/course/updateProgress`         |
-| CREATE_RATING                | `api/v1/course/createRating`                 |
+| DELETE_SECTION_API            | `api/v1/course/deleteSection`             |
+| ADD_SUBSECTION_API           | `api/v1/course/addSubSection`         |
+| EDIT_SUBSECTION_API               | `api/v1/course/updateSubSection`                |
+| ENROLLED_COURSES_API            | `api/v1/course/deleteSubSection`             |
+| CREATE_RATING_API                | `api/v1/course/createRating`                 |
+| GET_ALL_REVIEWS_API     | `api/v1/course/getReviews`|
+| DELETE_SUBSECTION_API           | `api/v1/course/deleteSubSection`         |
+| UPDATE_COURSE_PROGRESS_API                | `api/v1/course/updateProgress`                 |
 
-### RATINGS & REVIEWS
-
-| ENDPOINT                  | API PATH                          |
-|---------------------------|-----------------------------------|
-| REVIEWS_DETAILS           | `api/v1/course/getReviews`        |
 
 ### CATEGORIES 
 
 | ENDPOINT              | API PATH                              |
 |-----------------------|---------------------------------------|
-| CATEGORIES            | `api/v1/course/showAllCategories`      |
+| SHOW_ALL_CATEGORIES_API            | `api/v1/course/showAllCategories`      |
 
 ### CATALOG
 | ENDPOINT              | API PATH                              |
 |-----------------------|---------------------------------------|
-| CATALOG_PAGE_DATA       | `api/v1/course/getCategoryPageDetails`|
+| GET_CATEGORY_PAGE_DETAILS       | `api/v1/course/getCategoryPageDetails`|
 
 ### CONTACT US 
 
 | ENDPOINT              | API PATH                           |
 |-----------------------|------------------------------------|
-| CONTACT_US            | `api/v1/user/contactus`              |
+| CONTACT_US_FORM_API            | `api/v1/auth/contactus`              |
 
 ### SETTING
 
 | ENDPOINT                  | API PATH                              |
 |---------------------------|---------------------------------------|
-| UPDATE_DISPLAY_PICTURE     | `api/v1/profile/updateDisplayPicture`  |
-| UPDATE_PROFILE             | `api/v1/profile/updateProfile`        |
-| CHANGE_PASSWORD            | `api/v1/auth/changePassword`          |
-| DELETE_PROFILE             | `api/v1/profile/deleteProfile`       |
-| USER_DETAILS             | `api/v1/profile/getUserDetails`       |
-| INSTRUCTOR_DETAILS             | `api/v1/profile/getInstructorDetails`       |
+| UPDATE_PROFILE_PICTURE_API     | `api/v1/profile/updateDisplayPicture`  |
+| UPDATE_PROFILE_API             | `api/v1/profile/updateProfile`        |
+| UPDATE_PASSWORD_API            | `api/v1/profile/changepassword`          |
+| DELETE_PROFILE_API             | `api/v1/profile/deleteProfile`       |
+| GET_INSTRUCTOR_DETAILS_API             | `api/v1/profile/getInstructorDetails`       |
 
 ### SCHEMA DESIGN
-![Schema Design](https://res.cloudinary.com/dvpulu3cc/image/upload/v1699036870/Screenshot_2023-11-04_001024_ef0phq.jpg)
+![Schema Design](https://res.cloudinary.com/dgmvticqo/image/upload/fl_preserve_transparency/v1719334833/Kashish/Screenshot_2023-11-04_001024_ef0phq_egqoae.jpg)
 
 ### FUNCTIONALITIES
 
