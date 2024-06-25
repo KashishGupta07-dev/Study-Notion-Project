@@ -19,7 +19,7 @@ app.listen(PORT,()=>{
     console.log(`Server Started Successfully at port : ${PORT}`);
 });
 app.use(cors({
-	origin:"https://study-notion-frontend-omyjrxp66.vercel.app/",
+	origin:"https://study-notion-frontend-omyjrxp66.vercel.app",
 	credentials:true,
 }))
 app.use(fileUpload({
