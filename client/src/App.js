@@ -15,7 +15,7 @@ import { OpenRoute } from './components/core/Auth/OpenRoute';
 import {PrivateRoute} from "./components/core/Auth/PrivateRoute"
 import { MyProfile } from './components/core/Dashboard/MyProfile';
 import { Settings } from './components/core/Dashboard/Settings';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { AddCourse } from './components/core/Course/AddCourse';
 import { ViewCourse } from './components/core/Course/ViewCourse/ViewCourse';
 import { Cart } from './components/core/Dashboard/Cart';
@@ -26,28 +26,8 @@ import { ViewEnrolledCourse } from './components/core/ViewEnrolledCourse/ViewEnr
 import { ViewVideo } from './components/core/ViewEnrolledCourse/ViewVideo';
 import { InstructorDashboard } from './components/core/Dashboard/Instructor Dashboard/InstructorDashboard';
 import { EditCourse } from './components/core/Course/ViewCourse/EditCourse';
-import {jwtDecode} from 'jwt-decode';
-import { useEffect } from 'react';
-import { logoutHandler } from './services/operations/authApi';
 function App() {
   const {user} = useSelector((state)=>state.profile);
-  const {token} = useSelector((state)=>state.auth);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    if(token){
-      const decodeToken = jwtDecode(token);
-      const currentTime = new Date().getTime();
-      const tokenExpiryTime = decodeToken.exp * 1000; 
-      const timeLeft = tokenExpiryTime - currentTime;
-      if (timeLeft <= 0) {
-        dispatch(logoutHandler(navigate));
-    }else{
-      setTimeout(dispatch(logoutHandler(navigate)), timeLeft);
-    }
-    }
-    // eslint-disable-next-line
-  },[])
   return (
    <div className='flex min-h-screen w-screen flex-col bg-richblack-900 font-inter'>
     <NavBar/>
