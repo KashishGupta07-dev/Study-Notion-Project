@@ -20,6 +20,7 @@ app.listen(PORT,()=>{
 });
 app.use(cors({
 	origin:"https://study-notion-frontend-one-dusky.vercel.app",
+	credentials:true,
 }))
 app.use(fileUpload({
     useTempFiles:true,
