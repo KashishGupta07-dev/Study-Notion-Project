@@ -45,7 +45,7 @@ export default function Footer() {
             })
            }
         </div>
-        <div className='max-w-[95%] w-full h-[0.5px] bg-richblack-600 '></div>
+        <div className='w-[95%] max-w-maxContent w-full h-[0.5px] bg-richblack-600 '></div>
         <div className='flex lg:flex-row flex-col lg:items-start gap-5 lg:gap-0 items-center lg:justify-between max-w-[90%] w-[90%] my-6 text-sm text-richblack-300'>
             <div className='flex flex-row gap-4 '>
             <Link to={"/privacypolicy"}>
