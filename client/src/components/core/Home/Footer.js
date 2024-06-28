@@ -10,7 +10,7 @@ import FooterLinks from './FooterLinks';
 export default function Footer() {
     const data = FooterLink2;
   return (
-    <div className='w-full min-h-[600px] bg-[#161D29] font-inter pb-5 flex flex-col  lg:items-center gap-4'>
+    <div className='w-full max-w-maxContent min-h-[600px] bg-[#161D29] font-inter pb-5 flex flex-col  lg:items-center gap-4'>
         <div className='mx-auto w-[90%] text-sm flex flex-row flex-wrap gap-5 mt-2 pt-16 transition-all duration-300'>
             <div className='flex flex-col gap-5 text-richblack-400'>
                 <img src={Logo} className='w-[150px]' alt='Logo'/>
