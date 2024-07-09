@@ -47,9 +47,9 @@ function changeHandler(event){
             </div>
     </label>
     <Link to={"/reset-password"}>
-            <div className='text-[12px]  -translate-y-[60%] text-blue-100 text-end '>Forgot Passoword</div>
+            <div className='text-[12px] -translate-y-[60%] text-blue-100 text-end '>Forgot Passoword</div>
     </Link>
-    <input type="submit" value={"Sign In"} className='w-full mt-6 bg-yellow-50 rounded-md py-2 font-bold cursor-pointer'/>
+    <input type="submit" value={"Sign In"} className='w-full bg-yellow-50 rounded-md py-2 font-bold cursor-pointer'/>
     </form>
   )
 }

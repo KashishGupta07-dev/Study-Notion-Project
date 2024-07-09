@@ -3,7 +3,7 @@ import { Rating } from '../common/Rating';
 export const RatingCard = ({rating}) => {
   return (
     <div className="px-4 py-2 flex flex-col gap-y-4">
-    <div className="flex flex-row gap-x-3 items-center">
+    <div className="flex flex-row flex-wrap gap-x-3 items-center">
       <img
         src={rating?.user?.image}
         alt="user"

@@ -24,7 +24,7 @@ export const SideBar = () => {
         return matchPath({path:route},location.pathname);
     }
     return (
-        <div className=' min-w-[220px] bg-richblack-800 h-[calc(100vh-3.5rem)] text-richblack-200 border-r-[0.5px] border-richblack-700'>
+        <div className='hidden md:block min-w-[220px] bg-richblack-800 h-[calc(100vh-3.5rem)] text-richblack-200 border-r-[0.5px] border-richblack-700'>
             <div className='flex flex-col font-semibold text-base gap-8 transition-all duration-200'>
             <div className='flex flex-col mt-14 gap-2'>
                 {

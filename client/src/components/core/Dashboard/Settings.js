@@ -60,17 +60,17 @@ export const Settings = () => {
           Edit Profile
         </div>
         <section className="w-full bg-richblack-800 py-8 px-10 mt-8 rounded-md border-[1px] border-richblack-700 flex flex-row justify-between items-center">
-          <div className="flex flex-row gap-3 items-center">
+          <div className="flex flex-row flex-wrap gap-3 items-center">
             <img
               src={previewImage ? previewImage : user?.image}
               alt="User"
-              className="object-cover rounded-full w-[78px] aspect-square"
+              className="object-cover rounded-full w-[78px] aspect-square mx-auto"
             />
             <div className=" flex flex-col gap-2">
               <div className="text-richblack-5 text-lg font-medium">
                 Change Profile Picture
               </div>
-              <div className="flex flex-row gap-4">
+              <div className="flex flex-row flex-wrap gap-4 mx-auto">
                 <input
                   type="file"
                   ref={inputFileRef}
@@ -111,7 +111,7 @@ export const Settings = () => {
             <div className="text-richblack-5 text-xl font-semibold">
               Profile Information
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row flex-wrap sm:flex-nowrap gap-4">
               <label className="w-full">
                 <p className="mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5">
                   First Name <sup className="text-pink-400">*</sup>
@@ -155,7 +155,7 @@ export const Settings = () => {
                 />
               </label>
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row flex-wrap sm:flex-nowrap gap-4">
               <label className="w-full">
                 <p className="mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5">
                   Date Of Birth <sup className="text-pink-400">*</sup>
@@ -203,7 +203,7 @@ export const Settings = () => {
                 </select>
               </label>
             </div>
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row flex-wrap sm:flex-nowrap gap-4">
               <label className="w-full">
                 <p className="mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5">
                   Contact Number <sup className="text-pink-400">*</sup>

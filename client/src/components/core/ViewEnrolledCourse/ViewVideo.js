@@ -162,7 +162,7 @@ export const ViewVideo = () => {
             }}
           />
           {videoEnded && (
-            <div className="absolute w-full h-full justify-center items-center top-0 flex gap-y-4 flex-col bg-white bg-opacity-45">
+            <div className="absolute w-full h-full justify-center items-center top-0 flex gap-y-2 sm:gap-y-4 flex-col bg-white bg-opacity-45">
               {!alreadyMarkedLectureAsCompleted() && (
                 <button className="bg-yellow-50 text-black rounded-md font-bold w-fit px-4 py-2" onClick={markHandler}>
                   Mark As Completed

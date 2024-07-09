@@ -38,15 +38,15 @@ export const CourseContent = ({course}) => {
         }
     }
   return (
-    <div className='flex flex-col gap-y-3 max-w-[60%]'>
+    <div className='flex flex-col gap-y-3 w-full lg:max-w-[60%] '>
         <div className='text-richblack-5 text-3xl font-bold mt-8'>Course Content</div>
         <div className='flex flex-row text-richblack-5 text-base font-medium justify-between'>
-        <div className='flex flex-row gap-x-4'>
-        <div>{`${course?.courseContent?.length} Section(s)`}</div>
+        <div className='flex flex-row gap-x-4 text-sm sm:text-base'>
+        <div className='hidden sm:block'>{`${course?.courseContent?.length} Section(s)`}</div>
             <div>{`${totalLectures()} Lecture(s)`}</div>
             <div>{`${totalTimeDuration()[0]}h ${totalTimeDuration()[1]}m ${totalTimeDuration()[2]}s total length`}</div>
         </div>
-            <button className='bg-transparent text-yellow-50 text-base' onClick={()=>{
+            <button className='bg-transparent text-yellow-50 text-sm sm:text-base' onClick={()=>{
                 const element1 = document.getElementsByClassName("arrow");
                 const element2 = document.getElementsByClassName("expansion");
                 for(const arrow in element1){

@@ -11,7 +11,7 @@ export const MyProfile = () => {
     <div className='w-11/12 flex flex-col mx-auto gap-5'>
       <div className='text-richblack-5 text-3xl font-medium mt-14'>My Profile</div>
       <section className='w-full bg-richblack-800 py-8 px-10 mt-8 rounded-md border-[1px] border-richblack-700 flex flex-row justify-between items-center'>
-        <div className='flex flex-row gap-3 items-center'>
+        <div className='flex flex-row gap-3 items-center flex-wrap max-w-1/2'>
         <img src={user?.image} alt='User' className='rounded-full w-24 aspect-square'/>
           <div className=' flex flex-col gap-2'>
             <div className='text-richblack-5 text-lg font-medium'>{`${user?.firstName} ${user?.lastName}`}</div>
@@ -25,17 +25,17 @@ export const MyProfile = () => {
       </section>
 
 
-      <section className='w-full bg-richblack-800 py-8 px-10 mt-8 rounded-md border-[1px] border-richblack-700 flex flex-row justify-between items-baseline'>
-        <div className='flex flex-col gap-12'>
+      <section className='w-full bg-richblack-800 py-8 px-10 mt-8 rounded-md border-[1px] border-richblack-700 flex flex-col'>
+        <div className='flex flex-row justify-between'>
           <div className='text-richblack-5 text-xl font-semibold'>About</div>
-          {
-            user?.additionalDetails?.about ? <div className='text-sm text-richblack-200'>{user?.additionalDetails?.about}</div> :<div className='text-sm text-richblack-200'>Write Something About Yourself</div>
-          }
-        </div>
-        <button className='flex flex-row items-center gap-3 bg-yellow-50 h-[50%] py-2 px-4 rounded-md' onClick={()=>navigate("/dashboard/settings")}>
+          <button className='flex flex-row items-center gap-3 bg-yellow-50 h-[50%] py-2 px-4 rounded-md' onClick={()=>navigate("/dashboard/settings")}>
             <div>Edit</div>
             <FaEdit />
         </button>
+        </div>
+        {
+            user?.additionalDetails?.about ? <div className='text-sm text-richblack-200 mt-8'>{user?.additionalDetails?.about}</div> :<div className='text-sm text-richblack-200'>Write Something About Yourself</div>
+          }
       </section>
 
 
@@ -48,7 +48,7 @@ export const MyProfile = () => {
             <FaEdit />
         </button>
         </div>
-         <div className='flex flex-row w-[500px] gap-4 text-richblack-200 justify-between'>
+         <div className='flex flex-row w-[500px] max-w-full gap-4 text-richblack-200 justify-between'>
          <div className='flex flex-col gap-y-2'>
               <div className='flex flex-col gap-1'>
               <div>First Name</div>

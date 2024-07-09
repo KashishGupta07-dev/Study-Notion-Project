@@ -36,7 +36,7 @@ export const ResetPassword = () => {
       dispatch(resetPasswordFromToken(formData?.password,formData?.confirmPassword,token,navigate));
   }
   return (
-    <form onSubmit={formSubmitHandler} className='flex flex-col w-[38%] my-auto max-w-maxContent mx-auto justify-center items-start'>
+    <form onSubmit={formSubmitHandler} className='flex flex-col w-10/12 sm:w-[60%] md:w-[38%] my-auto max-w-maxContent mx-auto justify-center items-start'>
     <div className=' flex flex-col mt-6 gap-4'>
     <div className='text-richblack-5 text-3xl font-medium'>{
        "Choose New Password"
@@ -47,10 +47,10 @@ export const ResetPassword = () => {
     }
     </div>
     </div>
-    <label className='relative mt-3'>
+    <label className='relative mt-3 w-full'>
         <p className='mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5'>Password <sup className='text-pink-400'>*</sup></p>
         <div className='flex flex-row'>
-    <input placeholder='Enter Password' onChange={changeHandler} name='password' value={formData.password} type={`${eyePass?"password":"text"}`} className=' bg-richblack-700 rounded-md px-4 py-3 text-richblack-5 placeholder-richblack-200 w-[470px] outline-none' required style={
+    <input placeholder='Enter Password' onChange={changeHandler} name='password' value={formData.password} type={`${eyePass?"password":"text"}`} className=' bg-richblack-700 rounded-md px-4 py-3 text-richblack-5 placeholder-richblack-200 w-full outline-none' required style={
             {
                 boxShadow:"rgba(255, 255, 255, 0.3) 0px -2px 0px inset",
 
@@ -61,10 +61,10 @@ export const ResetPassword = () => {
             }
             </div>
     </label>
-    <label className='relative mt-4'>
+    <label className='relative w-full mt-4'>
         <p className='mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5'>Confirm Password <sup className='text-pink-400'>*</sup></p>
     <div className='flex flex-row'>
-    <input placeholder='Confirm Password' onChange={changeHandler} name='confirmPassword' value={formData.confirmPassword} type={`${eyeConfirmPass?"password":"text"}`} className=' bg-richblack-700 w-[470px] rounded-md px-4 py-3 text-richblack-5 placeholder-richblack-200 outline-none' required style={
+    <input placeholder='Confirm Password' onChange={changeHandler} name='confirmPassword' value={formData.confirmPassword} type={`${eyeConfirmPass?"password":"text"}`} className=' bg-richblack-700 w-full rounded-md px-4 py-3 text-richblack-5 placeholder-richblack-200 outline-none' required style={
             {
                 boxShadow:"rgba(255, 255, 255, 0.3) 0px -2px 0px inset",
 
@@ -76,7 +76,7 @@ export const ResetPassword = () => {
             </div>
     </label>
     <input type="submit" value={"Reset Password"} className='w-full cursor-pointer mt-6 bg-yellow-50 text-black rounded-md py-3 font-bold'/>
-    <div className='flex flex-row gap-2  items-center cursor-pointer text-richblack-25 mt-3 text-[17px] font-medium' onClick={()=>{navigate("/login")}}>
+    <div className='flex flex-row gap-2 mb-4 items-center cursor-pointer text-richblack-25 mt-3 text-[17px] font-medium' onClick={()=>{navigate("/login")}}>
                     <GoArrowLeft/>
                     <div>Back To Login</div>
     </div>

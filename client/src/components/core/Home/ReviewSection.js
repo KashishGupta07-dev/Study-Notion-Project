@@ -24,7 +24,7 @@ export default function ReviewSection() {
         <Swiper
           loop={true}
           modules={[ FreeMode, Autoplay]}
-          slidesPerView={4}
+          slidesPerView={2}
           spaceBetween={25}
           freeMode={true}
           autoplay={{
@@ -35,10 +35,9 @@ export default function ReviewSection() {
           {ratings.map((rating, index) => (
             <SwiperSlide
               key={index}
-              className="bg-richblack-800 cursor-pointer"
+              className="bg-richblack-800 cursor-pointer max-w-[800px]"
               style={{
                 width: "fit-content",
-                maxWidth: "260px",
               }}
             >
               <RatingCard rating={rating} />

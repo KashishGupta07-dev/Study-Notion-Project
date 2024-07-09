@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useState,useEffect,useRef } from 'react';
 import { logoutHandler } from '../../../services/operations/authApi';
+import { sidebarLinks } from '../../../data/dashboard-links';
+import { Link } from 'react-router-dom';
 export const ProfileDropdown = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +37,20 @@ export const ProfileDropdown = () => {
     setShowDropdown(false)}} >
       Logout
     </div>
+    {
+       sidebarLinks.map((element)=>(
+                      element?.type ? element?.type === user.accountType && <Link to={element.path} className=' pl-2 pr-20 block md:hidden hover:bg-richblack-500 hover:text-white rounded-lg py-4 font-medium' key={element.id}  onClick={()=>setShowDropdown(false)}>
+                            <div>{element.name}</div> 
+                        </Link> :<Link to={element.path} className=' pl-2 pr-20 hover:bg-richblack-500 block md:hidden hover:text-white rounded-lg py-4 font-medium'  key={element.id}  onClick={()=>setShowDropdown(false)}>
+                            <div>{element.name}</div>
+                        </Link>
+                    ))
+    }
+    {
+      <Link to={"/dashboard/settings"} className=' pl-2 pr-20 hover:bg-richblack-500 block md:hidden hover:text-white rounded-lg py-4 font-medium' onClick={()=>setShowDropdown(false)}>
+                            <div>{"Settings"}</div>
+                        </Link>
+    }
     </div>
     <div className={`absolute left-[20%] top-[120%] w-6 h-6 rotate-45 opacity-0  bg-richblack-200 ${showDropdown?"opacity-100 pointer-events-auto":"opacity-0 pointer-events-none"}`}></div>
     </div>

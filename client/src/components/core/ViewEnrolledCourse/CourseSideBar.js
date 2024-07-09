@@ -48,7 +48,7 @@ export const CourseSideBar = ({setReviewModal}) => {
       return "0s"
 }
   return (
-    <div className=' min-w-[220px] max-w-max bg-richblack-800 h-[calc(100vh-3.5rem)] text-richblack-200 border-r-[0.5px] border-richblack-700'>
+  <div className='hidden md:block min-w-[220px] max-w-max bg-richblack-800 h-[calc(100vh-3.5rem)] text-richblack-200 border-r-[0.5px] border-richblack-700'>
     <div className='w-11/12 mx-auto pt-5 flex flex-col gap-y-4'>
         <div className='flex flex-row justify-between'>
             <button className='bg-richblack-100 text-richblack-900 flex items-center justify-center aspect-square px-2 rounded-full' onClick={()=>navigate("/dashboard/enrolled-courses")}>

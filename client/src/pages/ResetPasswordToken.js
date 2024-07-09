@@ -24,7 +24,7 @@ export const ResetPasswordToken = () => {
         dispatch(generateResetPasswordToken(formData?.email,navigate,setMailSent,setResetToken));
     }
   return (
-    <form onSubmit={formSubmitHandler} className='flex flex-col w-[38%] my-auto max-w-maxContent mx-auto justify-center items-start'>
+    <form onSubmit={formSubmitHandler} className='flex flex-col w-10/12 sm:w-[60%] md:w-[38%] my-auto max-w-maxContent mx-auto justify-center items-start'>
     <div className=' flex flex-col mt-6 gap-4'>
     <div className='text-richblack-5 text-3xl font-medium'>{
         mailSent?"Check Email":"Reset your password"
@@ -38,9 +38,9 @@ export const ResetPasswordToken = () => {
     </div>
     {
         !mailSent && (
-    <label>
+    <label className='w-full'>
     <p className='mb-1 mt-6 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5'>Email Address<sup className='text-pink-400'>*</sup></p>
-    <input placeholder='Enter Email Address' type='email' onChange={changeHandler} name='email' value={formData.email} className='bg-richblack-700 rounded-md px-4 py-3 w-[470px] text-richblack-5 placeholder-richblack-200 outline-none' required style={
+    <input placeholder='Enter Email Address' type='email' onChange={changeHandler} name='email' value={formData.email} className='bg-richblack-700 rounded-md px-4 py-3 w-full text-richblack-5 placeholder-richblack-200 outline-none' required style={
             {
                 boxShadow:"rgba(255, 255, 255, 0.3) 0px -2px 0px inset"
             }}/>
@@ -48,7 +48,7 @@ export const ResetPasswordToken = () => {
         )
     }
     <input type="submit" value={`${mailSent?"Resend Email":"Submit"}`} className='w-full cursor-pointer mt-6 bg-yellow-50 text-black rounded-md py-3 font-bold'/>
-    <div className='flex flex-row gap-2  items-center cursor-pointer text-richblack-25 mt-3 text-[17px] font-medium' onClick={()=>{navigate("/login")}}>
+    <div className='flex flex-row gap-2 mb-4 items-center cursor-pointer text-richblack-25 mt-3 text-[17px] font-medium' onClick={()=>{navigate("/login")}}>
                     <GoArrowLeft/>
                     <div>Back To Login</div>
     </div>

@@ -56,8 +56,9 @@ export const EnrolledCourses = () => {
     <thead>
         <tr className='bg-[#2C333F] text-richblack-50 font-semibold border-b-[1px] border-richblack-700'>
           <td className='py-3 px-4'>Course Name</td>
-          <td>Durations</td>
-          <td>Progress</td>
+          <td>
+          <div className='hidden lg:block'>Durations</div></td>
+          <td className="w-[25%]">Progress</td>
         </tr>
         </thead>
         <tbody>
@@ -68,18 +69,18 @@ export const EnrolledCourses = () => {
               <Link to={`/view-course/${course?._id}/section/${course?.courseContent[0]?._id}/sub-section/${course?.courseContent[0]?.subSection[0]?._id}`} className='flex flex-row items-center gap-x-4 py-4 px-4'>
                 <img src={course?.thumbnail} alt='thumbnail' className='w-[150px] h-[100px]  rounded-md object-cover'/>
                 <div className='flex flex-col gap-y-4'>
-                  <div className=' text-richblack-5 font-semibold'>{course?.courseName}</div>
-                  <div className='text-sm text-richblack-200 font-medium'>{course?.courseDescription?.substr(0,150) + "..."}</div>
+                  <div className=' text-richblack-5 font-semibold text-sm sm:text-base'>{course?.courseName}</div>
+                  <div className='text-sm text-richblack-200 font-medium hidden lg:block'>{course?.courseDescription?.substr(0,150) + "..."}</div>
                 </div>
                 </Link>
               </td>
               <td className='text-richblack-100 text-lg'>
-              <div> {totalTimeDuration(course)}</div>
+              <div className='hidden lg:block'> {totalTimeDuration(course)}</div>
               </td>
               <td>
-              <div className='flex flex-col gap-y-3 w-fit '>
-              <div className='text-richblack-200 text-sm font-semibold'>{`Progress : ${userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length ?Math.floor(((userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length)/totalLectures(course))*100) : 0}%`}</div>
-                <ProgressBar completed={userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length ?Math.floor(((userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length)/totalLectures(course))*100)  : 0}  height='10px'  isLabelVisible={false} baseBgColor='#2C333F' bgColor='#47A5C5' />
+              <div className='flex flex-col gap-y-3 w-fit'>
+              <div className='text-richblack-200 text-xs sm:text-sm font-semibold'>{`Progress : ${userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length ?Math.floor(((userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length)/totalLectures(course))*100) : 0}%`}</div>
+                <ProgressBar completed={userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length ?Math.floor(((userDetails?.courseProgress?.filter((progress)=>progress.courseId === course?._id)?.[0]?.completedVideos?.length)/totalLectures(course))*100)  : 0}  height='10px'  isLabelVisible={false} baseBgColor='#2C333F' bgColor='#47A5C5'/>
                </div>
               </td>
             </tr>

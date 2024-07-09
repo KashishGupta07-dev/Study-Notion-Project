@@ -30,13 +30,13 @@ export const SwiperCard = ({topSellingCourses,selectedCategory,heading}) => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        slidesPerView={3}
+        slidesPerView={2}
         spaceBetween={25}
         className="w-full h-full">
         {
         (selectedCategory? selectedCategory?.course : topSellingCourses)?.map((course)=>(
               !course?.studentsEnrolled?.includes(user?._id) && 
-               course?.status === "Published" && <SwiperSlide key={course._id}>
+               course?.status === "Published" && <SwiperSlide key={course._id} className='max-w-[800px]'>
                 <CourseCard course={course}/>
                 </SwiperSlide>
         ))

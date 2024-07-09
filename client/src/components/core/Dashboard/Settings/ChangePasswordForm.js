@@ -36,7 +36,7 @@ export const ChangePasswordForm = () => {
     >
       <div className="flex flex-col gap-12 w-full">
         <div className="text-richblack-5 text-xl font-semibold">Password</div>
-        <div className="flex flex-row  gap-4">
+        <div className="flex flex-row flex-wrap lg:flex-nowrap  gap-4">
           <label className="relative w-full">
           <div className="relative ">
             <p className="mb-1 text-[0.875rem] leading-[1.375rem] font-medium text-richblack-5">
