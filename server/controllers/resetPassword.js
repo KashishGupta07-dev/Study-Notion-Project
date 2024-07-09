@@ -14,7 +14,7 @@ exports.resetPasswordToken = async(request,response)=>{
             })
         };
         const token = crypto.randomBytes(20).toString("hex");
-        const url = `http://localhost:3000/reset-password/${token}`;
+        const url = `https://study-notion-frontend-one-dusky.vercel.app/reset-password/${token}`;
         const updatedUser = await User.findOneAndUpdate({email:email},{token:token,tokenExpiresIn:Date.now()+5*60*1000},{new:true});
       await  mailSender(email,"Password Reset Link",`Password Reset Link : ${url}`);
         return response.status(200).json({
